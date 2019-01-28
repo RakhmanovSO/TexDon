@@ -26,13 +26,16 @@
             </thead>
             <tbody>
             <?php foreach ( $this->view->products as $product) { ?>
-                <tr data-product-id="<?= $product->productID ?>">
+
+                <tr data-product-id="<?= $product->productID ?>" >
 
                     <td><?= $product->productID ?></td>
                     <td><?= $product->productTitle ?></td>
                     <td><?= $product->productPrice ?></td>
-                    <td><button data-product-id="<?= $product->productID ?>" class="btn btn-danger" >Удалить</button></td>
-                    <td><a class="btn btn-primary" href="?ctrl=Product&act=updateProduct">Обновить</a></td>
+
+                    <td><a id ="updateProduct" class="btn btn-primary" href="?ctrl=Product&act=updateProduct&productID=<?= $product->productID ?>" >Обновить</a>
+
+                    <td><div data-product-id="<?= $product->productID ?>" class="btn btn-danger" >Удалить</div></td>
 
                 </tr>
             <?php }//foreach ?>
@@ -55,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                    <button id="confirmRemoveProduct" type="button" class="btn btn-primary" data-dismiss="modal">Удалить</button>
+                    <div id="confirmRemoveProduct" type="button" class="btn btn-primary" data-dismiss="modal">Удалить</div>
                 </div>
             </div>
         </div>

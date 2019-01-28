@@ -30,7 +30,6 @@ class ProductAndSubcategory{
 
     public static function AddProductBySubcategory ($subcategoryID, $productID) {
 
-
         $stm = MySQL::$db->prepare("INSERT INTO `subcategoriesandproducts`(`subcategoryandproductID`, `subcategoryID`, `productID`) VALUES (NULL,:subcategoryID, :productID)");
 
         $stm->bindParam( ":subcategoryID" ,  $subcategoryID, \PDO::PARAM_INT);
@@ -72,6 +71,58 @@ class ProductAndSubcategory{
         return $result;
 
     }//DeleteProductBySubcategory
+
+
+
+    public static function UpdateProductBySubcategory( $subcategoryandproductID, $subcategoryID, $productID ){
+
+        $stm = MySQL::$db->prepare("UPDATE `subcategoriesandproducts` SET `subcategoryID`= :subId,`productID`= :pId WHERE subcategoryandproductID = :id");
+
+        $stm->bindParam( ":id" ,  $subcategoryandproductID, \PDO::PARAM_INT);
+
+        $stm->bindParam( ":pId" , $productID, \PDO::PARAM_INT);
+
+        $stm->bindParam( ":subId" , $subcategoryID, \PDO::PARAM_INT);
+
+        $stm->execute();
+
+        $result = $stm->fetch(\PDO::FETCH_OBJ);
+
+        if( $result === false ){
+
+            throw new \Exception(MySQL::$db->errorInfo());
+
+        }//if
+
+        return $result;
+
+    }//UpdateProductImagePath
+
+
+
+
+
+    public static function GetProductAndSubcategoryIdByProductId ($productID) {
+
+
+        $stm = MySQL::$db->prepare("SELECT * FROM `subcategoriesandproducts` WHERE productID = :id");
+
+        $stm->bindParam( ":id" ,  $productID, \PDO::PARAM_INT);
+
+
+        $stm->execute();
+
+        $result =  $stm->fetch(\PDO::FETCH_OBJ);
+
+
+        if( $result === false ){
+            throw new \Exception(MySQL::$db->errorInfo());
+        }//if
+
+        return $result;
+
+    }//GetProductAndSubcategoryIdByProductId
+
 
 
 

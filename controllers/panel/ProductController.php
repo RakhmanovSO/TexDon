@@ -36,51 +36,6 @@ class ProductController extends BaseController {
 
     }//addProductAction
 
-    public function attributesListAction(  ){
-
-        $this->view->attributes = ProductAttribute::getAttributesList();
-
-        return 'attributes-list';
-
-    }//attributesListAction
-
-    public function addAttributeAction(  ){
-        return 'addAttribute';
-    }//addAttributeAction
-
-
-    //AJAX
-    public function addNewAttributeAction(  ){
-
-        $attributeTitle = $this->request->getPostValue('attributeTitle');
-
-        $response = array(
-            'code' => '' , 'data' => '' , 'message' => ''
-        );
-
-        try{
-            $result = ProductAttribute::addNewAttribute( $attributeTitle );
-
-            $response['code'] = 200;
-            $response['message'] = 'Атрибут добавлен!';
-            $response['data'] = $result;
-
-        }//try
-
-        catch( \Exception $ex ){
-
-            $response['code'] = 400;
-            $response['message'] = $ex->getMessage();
-            $response['data'] = array(
-                'attributeTitle' => $attributeTitle,
-            );
-
-        }//catch
-
-        $this->json( $response );
-
-    }//addNewAttributeAction
-
 
     public function addNewProductAction(  ){
 
@@ -164,9 +119,9 @@ class ProductController extends BaseController {
     }//addNewProductAction
 
 
-    public function updateProductAction(  ){
+    public function updateProductAction( ){
 
-        $productID = $this->request->getGetValue('$productID');
+        $productID = $this->request->getGetValue('productID');
 
         $product = Product::GetProductById($productID);
 
@@ -174,8 +129,11 @@ class ProductController extends BaseController {
 
         $subcategories = Subcategory::GetSubcategoryList();
 
-        $attributes = ProductAttributes::GetAttributesList();
+        $attributes = ProductAttributes::GetAttributeByProductId($productID);
 
+        $subcategoryAndProduct = ProductAndSubcategory::GetProductBySubcategoryList();
+
+        $productAndSubcategoryId = ProductAndSubcategory::GetProductAndSubcategoryIdByProductId($productID);
 
         $this->view->product = $product;
 
@@ -185,22 +143,121 @@ class ProductController extends BaseController {
 
         $this->view->attributes = $attributes;
 
+        $this->view->subcategoryAndProduct = $subcategoryAndProduct;
+
+        $this->view->productAndSubcategoryId = $productAndSubcategoryId;
 
         return 'updateProduct';
 
-    }
+    }// updateProductAction
 
 
-    public function allProductsAction(  ){
+    public function saveUpdateProductAction( ){
 
-        $productID = $this->request->getGetValue( 'productID' );
+        $productID = $this->request->getPostValue('productID');
 
-        $this->view->products = Product::getProductById(  $productID );
+        $subcategoryandproductID = $this->request->getPostValue('subcategoryandproductID');
 
-        $this->view->products = Product::GetAllProducts($productID , 10,0);
+        $productTitle = $this->request->getPostValue('productTitle');
 
-        return 'allProducts';
+        $productPrice = $this->request->getPostValue('productPrice');
 
-    }//allProductsAction
+        $productDescription = $this->request->getPostValue('productDescription');
+
+        $subcategoryID = $this->request->getPostValue('subcategoryID');
+
+        $attributes = json_decode(  $_POST['attributes'] );
+
+        $imagesPaths = json_decode(  $_POST['imagesPaths'] );
+
+
+
+        try{
+
+
+
+            $result = Product::UpdateProduct($productID, $productTitle, $productDescription , $productPrice);
+
+
+            ///// ??????????????
+
+            foreach ( $attributes as $attribute ){
+                ProductAndAttributes::AddAttributeToProduct($productID , $attribute->attributeID , $attribute->attributeValue );
+            }//foreach
+
+            foreach ( $imagesPaths as $path ){
+                ProductImagesPath::AddProductImagePath( $productID, $path->productImagePath);
+            }//foreach
+
+
+            ProductAndSubcategory::UpdateProductBySubcategory($subcategoryandproductID, $subcategoryID , $productID );
+
+
+            $response['code'] = 200;
+            $response['message'] = 'Информация о товаре успешно обновлена!';
+            $response['data'] = $result;
+
+        }//try
+        catch( \Exception $ex ){
+
+            $response['code'] = 400;
+            $response['message'] = $ex->getMessage();
+            $response['data'] = array(
+                'productID' => $productID,
+                'productTitle' => $productTitle,
+                'productDescription' => $productDescription,
+                'productPrice' => $productPrice,
+                '$subcategoryandproductID' => $subcategoryandproductID
+            );
+
+        }//catch
+
+        $this->json( $response );
+
+    }//saveUpdateProductAction
+
+
+
+    public function removeProductAction( ){
+
+        $productID = $this->request->getDeleteValue('productID');
+
+
+        $response = array(
+            'code' => '' , 'data' => '' , 'message' => ''
+        );
+
+        try{
+
+            $resultGetProductIdToSubcategory = ProductAndSubcategory::GetProductAndSubcategoryIdByProductId($productID);
+
+            $this->view->resultGetProductIdToSubcategory = $resultGetProductIdToSubcategory;
+
+            $resultDeleteProductAndSubcategoryTable = ProductAndSubcategory::DeleteProductBySubcategory($resultGetProductIdToSubcategory->subcategoryandproductID);
+
+            $resultDeleteProduct = Product::DeleteProduct($productID);
+
+            $response['code'] = 200;
+            $response['message'] = 'Подкатегория удалена!';
+            $response['data'] = array( 'resultGetProductIdToSubcategory' =>  $resultGetProductIdToSubcategory,
+                'resultDeleteProductAndSubcategoryTable' => $resultDeleteProductAndSubcategoryTable,
+                'resultDeleteProduct' => $resultDeleteProduct);
+
+        }//try
+        catch( \Exception $ex ){
+
+            $response['code'] = 400;
+            $response['message'] = $ex->getMessage();
+            $response['data'] = array( 'resultGetProductIdToSubcategory' =>  $resultGetProductIdToSubcategory,
+                'resultDeleteProductAndSubcategoryTable' => $resultDeleteProductAndSubcategoryTable,
+                'productID' =>  $productID);
+
+        }//catch
+
+        $this->json($response);
+
+
+    }//removeProduct
+
 
 }//ProductController

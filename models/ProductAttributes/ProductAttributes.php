@@ -68,7 +68,6 @@ class ProductAttributes {
 
         return  $result;
 
-
     }//addNewAttribute
 
 
@@ -85,7 +84,6 @@ class ProductAttributes {
         }//if
 
         return  $result;
-
 
     }//DeleteAttribute
 
@@ -109,6 +107,26 @@ class ProductAttributes {
         return  $result;
 
     }//UpdateAttribute
+
+
+    public static function GetAttributeByProductId( $productID ) {
+
+        $stm = MySQL::$db->prepare("SELECT p.productID, at.attributeID, paatt.value, at.attributeTitle FROM `productsandattributes` AS `paatt` INNER JOIN `products` AS `p` ON paatt.productID = p.productID INNER JOIN `productattributes` AS `at` ON paatt.attributeID = at.attributeID  WHERE p.productID = :id");
+
+
+        $stm->bindParam(':id', $productID, \PDO::PARAM_INT);
+
+        $stm->execute();
+
+        $attributes = $stm->fetchAll(\PDO::FETCH_OBJ);
+
+        if( $attributes === false ){
+            throw new \Exception('Ошибка получения атрибутов продукта!');
+        }//if
+
+        return $attributes;
+
+    }// GetAttributeByProductId
 
 
 

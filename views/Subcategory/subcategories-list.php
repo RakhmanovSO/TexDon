@@ -33,7 +33,7 @@
 
                     <td><?= $subcategory->categoryTitle ?></td>
 
-                    <td><a id ="updateSubcategory" class="btn btn-primary" href="?ctrl=Subcategory&act=updateSubcategory&subcategoryID=<?= $subcategory->subcategoryID ?>&categoryID=<?= $subcategory->categoryID ?>">Изменить</a></td>
+                    <td><a id ="updateSubcategory" lass="btn btn-primary" href="?ctrl=Subcategory&act=updateSubcategory&subcategoryID=<?= $subcategory->subcategoryID ?>&categoryID=<?= $subcategory->categoryID ?>">Изменить</a></td>
 
                     <td> <div data-subcategory-id="<?= $subcategory->subcategoryID ?>" data-subcategorytocategory-id="<?= $subcategory->categoryandsubcategoryID ?>" class="btn btn-danger">Удалить</div> </td>
 

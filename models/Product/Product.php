@@ -15,6 +15,16 @@ class Product{
 
 
 
+    public  function __construct($productID, $productTitle,  $productPrice) {
+
+        $this->productID = $productID;
+        $this->productTitle = $productTitle;
+        $this->productPrice = $productPrice;
+
+    }// __construct
+
+
+
 
     public static function GetProductList ( $limit = 50, $offset = 0 ){
 
@@ -97,7 +107,51 @@ class Product{
 
         return $product;
 
-    }//GetProductById
+    }//AddNewProduct
+
+
+
+    public static function UpdateProduct($productID, $productTitle, $productDescription, $productPrice) {
+
+
+        $stm = MySQL::$db->prepare("UPDATE `products` SET `productTitle`= :title,`productDescription`= :description,`productPrice`= :price WHERE productID = :id");
+
+        $stm->bindParam( ":id" ,  $productID, \PDO::PARAM_INT);
+
+        $stm->bindParam( ":title" ,  $productTitle, \PDO::PARAM_STR);
+
+        $stm->bindParam( ":description" ,  $productDescription, \PDO::PARAM_STR);
+
+        $stm->bindParam( ":price" , $productPrice, \PDO::PARAM_STR);
+
+        $stm->execute();
+
+        $product = $stm->fetch(\PDO::FETCH_OBJ);
+
+
+        if( $product === false ){
+            throw new \Exception(MySQL::$db->errorInfo());
+        }//if
+
+        return $product;
+
+    }//UpdateProduct
+
+
+
+
+    public static function DeleteProduct($productID){
+
+        $stm = MySQL::$db->prepare("DELETE FROM `products` WHERE productID = :id");
+
+        $stm->bindParam(':id', $productID, \PDO::PARAM_INT);
+
+        $result = $stm->execute();
+
+        return  $result;
+
+    }//DeleteProduct
+
 
 
 
