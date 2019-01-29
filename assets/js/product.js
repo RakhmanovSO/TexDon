@@ -396,8 +396,8 @@
             }//if
 
 
-
-            $.ajax( `${window.ServerAddress}?ctrl=Product&act=removeProduct`, {
+           $.ajax( `${window.ServerAddress}?ctrl=Product&act=removeProduct`, {
+           // $.ajax( "http://localhost:5012/TexDon/index.php?ctrl=Product&act=removeProduct&XDEBUG_SESSION_START=14959", {
                 method: 'DELETE',
                 data: {
                     'productID': productID,
