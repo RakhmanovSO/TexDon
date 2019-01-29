@@ -1,7 +1,7 @@
 <?php
 
 
-namespace models\OrderDetails;
+namespace models\Order;
 
 
 use utils\MySQL;
@@ -29,7 +29,7 @@ class OrderDetails {
 
     public static function GetOrderDetailsByOrderId ( $orderID ){
 
-        $stm = MySQL::$db->prepare ("SELECT `orderDetailsID`, `productID`, `amountProduct`, `productPrice`, `orderID` FROM `orderdetails` WHERE orderID = :id");
+        $stm = MySQL::$db->prepare ("SELECT od.orderDetailsID, od.productID, od.amountProduct, od.productPrice, od.orderID, p.productTitle FROM orderdetails as od INNER JOIN products as p ON p.productID = od.productID WHERE od.orderID = :id");
 
         $stm->bindParam( ":id" ,  $orderID, \PDO::PARAM_INT);
 
@@ -49,7 +49,6 @@ class OrderDetails {
 
 
     public static function AddNewOrderDetails( $productID,  $amountProduct, $productPrice, $orderID) {
-
 
         $stm = MySQL::$db->prepare("INSERT INTO `orderdetails`(`orderDetailsID`, `productID`, `amountProduct`, `productPrice`, `orderID`) VALUES (NULL,:idP, :amount, :price, :orderId)");
 
@@ -76,7 +75,6 @@ class OrderDetails {
 
 
     public static function UpdateOrderDetails( $orderDetailsID, $productID,  $amountProduct, $productPrice, $orderID) {
-
 
         $stm = MySQL::$db->prepare("UPDATE `orderdetails` SET `productID`= :idP,`amountProduct`= :amount, `productPrice`= :price,`orderID`= :orderId WHERE `orderDetailsID`= :id");
 

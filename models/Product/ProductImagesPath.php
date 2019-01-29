@@ -12,7 +12,7 @@ class ProductImagesPath {
     public $productImagePath;
 
 
-    public static function GetProductImagePathList ( $productID, $limit = 50, $offset = 0 ){
+    public static function GetProductImagePathList ( $productID, $limit = 60, $offset = 0 ){
 
 
         $stm = MySQL::$db->prepare("SELECT * FROM `productimagespath` WHERE productID = :id");

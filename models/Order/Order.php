@@ -31,6 +31,23 @@ class Order {
 
 
 
+    public static function GetOrderList ( $limit = 50, $offset = 0){
+
+        $stm = MySQL::$db->prepare ("SELECT ord.orderID, ord.dateAndTimeOrder, ord.userFirstAndLastName, ord.deliveryAddressOrder FROM `orders` AS `ord` LIMIT $offset, $limit");
+
+        $stm->execute();
+
+        $result =  $stm->fetchAll(\PDO::FETCH_OBJ);
+
+        if( $result === false ){
+            throw new \Exception(MySQL::$db->errorInfo());
+        }//if
+
+        return  $result;
+
+    }//GetOrderByOrderId
+
+
     public static function GetOrderByOrderId ( $orderID ){
 
         $stm = MySQL::$db->prepare ("SELECT `orderID`, `userFirstAndLastName`, `userContactNumberPhone`, `userEmail`, `deliveryAddressOrder`, `commentToTheOrder`, `dateAndTimeOrder` FROM `orders` WHERE orderID = :id");
@@ -136,6 +153,10 @@ class Order {
     }//DeleteOrder
 
 
+// SELECT ord.orderID, ord.dateAndTimeOrder, ord.userFirstAndLastName, ord.deliveryAddressOrder FROM `orders` AS `ord` LIMIT 0, 50
+
+    /// SELECT* FROM `orders` AS `ord` INNER JOIN `orderdetails` AS `ordDet` ON ord.orderID = ordDet.orderID LIMIT 0, 50
+    /// SELECT ord.orderID, ord.dateAndTimeOrder, ord.deliveryAddressOrder, ordDet.orderDetailsID FROM `orders` AS `ord` INNER JOIN `orderdetails` AS `ordDet` ON ord.orderID = ordDet.orderID LIMIT 0, 50
 
 
 }//Order
