@@ -231,11 +231,22 @@ class ProductController extends BaseController {
 
             $resultGetProductIdToSubcategory = ProductAndSubcategory::GetProductAndSubcategoryIdByProductId($productID);
 
-            $this->view->resultGetProductIdToSubcategory = $resultGetProductIdToSubcategory;
+            $resultGetProductImagesPath = ProductImagesPath::GetProductImagePathList($productID);
+
 
             $resultDeleteProductAndSubcategoryTable = ProductAndSubcategory::DeleteProductBySubcategory($resultGetProductIdToSubcategory->subcategoryandproductID);
 
             $resultDeleteProduct = Product::DeleteProduct($productID);
+
+
+            if ($resultDeleteProduct == true) {
+
+                foreach ($resultGetProductImagesPath as $path) {
+
+                    unlink($path->productImagePath); // удаление файла по пути path
+                }
+
+            }//if
 
             $response['code'] = 200;
             $response['message'] = 'Подкатегория удалена!';
