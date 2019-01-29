@@ -7,11 +7,10 @@
 
 
 
-    <form class="col-12">
+
         <div class="form-group">
             <a href="index.php?ctrl=Product&act=addProduct" class="btn btn-primary">Добавить товар</a>
         </div>
-    </form>
 
     <div class="table-responsive">
         <table class="table table-striped table-sm">
@@ -42,7 +41,10 @@
 
             </tbody>
         </table>
+
+
     </div>
+
 
     <div id="removeProductModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -58,13 +60,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                    <div id="confirmRemoveProduct" type="button" class="btn btn-primary" data-dismiss="modal">Удалить</div>
+                    <button id="confirmRemoveProduct" type="button" class="btn btn-primary" data-dismiss="modal">Удалить</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
 </main>
-</div>
-</div>
+
 

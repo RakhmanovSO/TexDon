@@ -65,6 +65,4 @@
             </div>
 
         </main>
-    </div>
-</div>
 
