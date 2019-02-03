@@ -14,6 +14,28 @@ class ProductAndAttributes {
 
 
 
+    public static function GetAttributesProductByProductID( $productID,  $attributeID ){
+
+        $stm = MySQL::$db->prepare("SELECT * FROM `productsandattributes` WHERE productID = :id  AND attributeID = :attributeID");
+
+        $stm->bindParam(':id' , $productID , \PDO::PARAM_INT);
+
+        $stm->bindParam(':attributeID' , $attributeID , \PDO::PARAM_INT);
+
+        $stm->execute();
+
+        $result = $stm->fetchAll(\PDO::FETCH_OBJ);
+
+        if( $result === false ){
+            throw new \Exception('Ошибка получения атрибута!');
+        }//if
+
+        return  $result;
+
+
+    }//GetAttributesProductByProductID
+
+
     public static function AddAttributeToProduct( $productID , $attributeID , $value ){
 
         $stm = MySQL::$db->prepare("INSERT INTO `productsandattributes`(`productandattributesID`, `attributeID`, `productID`, `value`) VALUES(NULL , :attributeID , :productID , :val)");

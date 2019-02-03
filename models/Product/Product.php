@@ -12,14 +12,16 @@ class Product{
     public $productTitle;
     public $productDescription;
     public $productPrice;
+    public $brandProduct;
 
 
 
-    public  function __construct($productID, $productTitle,  $productPrice) {
+    public  function __construct($productID, $productTitle,  $productPrice, $brandProduct) {
 
         $this->productID = $productID;
         $this->productTitle = $productTitle;
         $this->productPrice = $productPrice;
+        $this->brandProduct = $brandProduct;
 
     }// __construct
 
@@ -72,7 +74,7 @@ class Product{
 
         $stm->execute();
 
-        $product =  $stm->fetchAll(\PDO::FETCH_OBJ);
+        $product = $stm->fetchAll(\PDO::FETCH_OBJ);
 
 
         if( $product === false ){
@@ -85,10 +87,10 @@ class Product{
 
 
 
-    public static function AddNewProduct($productTitle, $productDescription, $productPrice) {
+    public static function AddNewProduct($productTitle, $productDescription, $productPrice, $brandProduct) {
 
 
-        $stm = MySQL::$db->prepare("INSERT INTO `products`(`productID`, `productTitle`, `productDescription`, `productPrice`) VALUES (NULL, :title, :description, :price)");
+        $stm = MySQL::$db->prepare("INSERT INTO `products`(`productID`, `productTitle`, `productDescription`,  `productPrice`, `brandProduct`) VALUES (NULL, :title, :description, :price, :brand)");
 
         $stm->bindParam( ":title" ,  $productTitle, \PDO::PARAM_STR);
 
@@ -96,9 +98,9 @@ class Product{
 
         $stm->bindParam( ":price" , $productPrice, \PDO::PARAM_STR);
 
-        $stm->execute();
+        $stm->bindParam( ":brand" ,  $brandProduct, \PDO::PARAM_STR);
 
-        $product =  $stm->fetch(\PDO::FETCH_OBJ);
+        $product = $stm->execute();
 
 
         if( $product === false ){
@@ -111,10 +113,10 @@ class Product{
 
 
 
-    public static function UpdateProduct($productID, $productTitle, $productDescription, $productPrice) {
+    public static function UpdateProduct($productID, $productTitle, $productDescription, $productPrice, $brandProduct) {
 
 
-        $stm = MySQL::$db->prepare("UPDATE `products` SET `productTitle`= :title,`productDescription`= :description,`productPrice`= :price WHERE productID = :id");
+        $stm = MySQL::$db->prepare("UPDATE `products` SET `productTitle`= :title,`productDescription`= :description,`productPrice`= :price, `brandProduct`= :brand WHERE productID = :id");
 
         $stm->bindParam( ":id" ,  $productID, \PDO::PARAM_INT);
 
@@ -124,9 +126,10 @@ class Product{
 
         $stm->bindParam( ":price" , $productPrice, \PDO::PARAM_STR);
 
-        $stm->execute();
+        $stm->bindParam( ":brand" ,  $brandProduct, \PDO::PARAM_STR);
 
-        $product = $stm->fetch(\PDO::FETCH_OBJ);
+
+        $product = $stm->execute();
 
 
         if( $product === false ){
@@ -147,6 +150,11 @@ class Product{
         $stm->bindParam(':id', $productID, \PDO::PARAM_INT);
 
         $result = $stm->execute();
+
+
+        if( $result === false ){
+            throw new \Exception(MySQL::$db->errorInfo());
+        }//if
 
         return  $result;
 

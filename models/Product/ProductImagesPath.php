@@ -15,7 +15,7 @@ class ProductImagesPath {
     public static function GetProductImagePathList ( $productID, $limit = 60, $offset = 0 ){
 
 
-        $stm = MySQL::$db->prepare("SELECT * FROM `productimagespath` WHERE productID = :id");
+        $stm = MySQL::$db->prepare("SELECT * FROM `productimagespath` WHERE productID = :id LIMIT $offset, $limit");
 
         $stm->bindParam( ":id" ,  $productID, \PDO::PARAM_INT);
 
@@ -43,9 +43,7 @@ class ProductImagesPath {
 
         $stm->bindParam( ":path" , $productImagePath, \PDO::PARAM_STR);
 
-        $stm->execute();
-
-        $result = $stm->fetch(\PDO::FETCH_OBJ);
+        $result = $stm->execute();
 
         if( $result === false ){
 
@@ -65,9 +63,7 @@ class ProductImagesPath {
 
         $stm->bindParam( ":id" ,  $id, \PDO::PARAM_INT);
 
-        $stm->execute();
-
-        $result = $stm->fetch(\PDO::FETCH_OBJ);
+        $result = $stm->execute();
 
         if( $result === false ){
 
@@ -93,9 +89,7 @@ class ProductImagesPath {
 
         $stm->bindParam( ":path" , $productImagePath, \PDO::PARAM_STR);
 
-        $stm->execute();
-
-        $result = $stm->fetch(\PDO::FETCH_OBJ);
+        $result = $stm->execute();
 
         if( $result === false ){
 

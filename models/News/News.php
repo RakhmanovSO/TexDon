@@ -93,9 +93,7 @@ class News{
         $stm->bindParam( ":display" , $displayOnTheHomePage , \PDO::PARAM_INT);
 
 
-        $stm->execute();
-
-        $news =  $stm->fetch(\PDO::FETCH_OBJ);
+        $news =  $stm->execute();
 
 
         if( $news === false ){
@@ -131,9 +129,7 @@ class News{
         $stm->bindParam( ":display" , $displayOnTheHomePage , \PDO::PARAM_INT);
 
 
-        $stm->execute();
-
-        $news =  $stm->fetch(\PDO::FETCH_OBJ);
+        $news =  $stm->execute();
 
 
         if( $news === false ){
@@ -153,9 +149,7 @@ class News{
         $stm->bindParam( ":id" , $newsID , \PDO::PARAM_INT);
 
 
-        $stm->execute();
-
-        $news =  $stm->fetch(\PDO::FETCH_OBJ);
+        $news =  $stm->execute();
 
 
         if( $news === false ){

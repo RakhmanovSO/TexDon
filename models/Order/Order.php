@@ -85,10 +85,7 @@ class Order {
 
         $stm->bindParam( ":datetime" ,  $dateAndTimeOrder, \PDO::PARAM_STR);
 
-        $stm->execute();
-
-        $result =  $stm->fetch(\PDO::FETCH_OBJ);
-
+        $result = $stm->execute();
 
         if( $result === false ){
             throw new \Exception(MySQL::$db->errorInfo());
@@ -119,9 +116,7 @@ class Order {
 
         $stm->bindParam( ":datetime" ,  $dateAndTimeOrder, \PDO::PARAM_STR);
 
-        $stm->execute();
-
-        $result =  $stm->fetch(\PDO::FETCH_OBJ);
+        $result = $stm->execute();
 
 
         if( $result === false ){
@@ -140,9 +135,8 @@ class Order {
 
         $stm->bindParam( ":id" ,  $orderID , \PDO::PARAM_INT);
 
-        $stm->execute();
+        $result = $stm->execute();
 
-        $result = $stm->fetch(\PDO::FETCH_OBJ);
 
         if( $result === false ){
             throw new \Exception(MySQL::$db->errorInfo());

@@ -36,9 +36,7 @@ class ProductAndSubcategory{
 
         $stm->bindParam( ":productID" , $productID, \PDO::PARAM_INT);
 
-        $stm->execute();
-
-        $result =  $stm->fetch(\PDO::FETCH_OBJ);
+        $result = $stm->execute();
 
 
         if( $result  === false ){
@@ -59,9 +57,7 @@ class ProductAndSubcategory{
         $stm->bindParam( ":id" ,  $subcategoryandproductID, \PDO::PARAM_INT);
 
 
-        $stm->execute();
-
-        $result =  $stm->fetch(\PDO::FETCH_OBJ);
+        $result = $stm->execute();
 
 
         if( $result === false ){
@@ -84,9 +80,8 @@ class ProductAndSubcategory{
 
         $stm->bindParam( ":subId" , $subcategoryID, \PDO::PARAM_INT);
 
-        $stm->execute();
+        $result = $stm->execute();
 
-        $result = $stm->fetch(\PDO::FETCH_OBJ);
 
         if( $result === false ){
 
@@ -101,9 +96,7 @@ class ProductAndSubcategory{
 
 
 
-
     public static function GetProductAndSubcategoryIdByProductId ($productID) {
-
 
         $stm = MySQL::$db->prepare("SELECT * FROM `subcategoriesandproducts` WHERE productID = :id");
 

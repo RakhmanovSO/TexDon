@@ -130,6 +130,11 @@ class Subcategory {
 
         $result = $stm->execute();
 
+        if( $result === false ){
+            throw new \Exception('Ошибка добавления Подкатегории! Возможно такая Подкатегория уже есть!');
+        }//if
+
+
         return  $result;
 
     }//DeleteSubcategory
