@@ -34,7 +34,7 @@ class NewsApiController extends BaseController{
 
 
 
-    public function GetNewsListForTheSectionNewsAction(){
+    public function GetAllNewsForMenuAction(){
 
         $response = array(
 
@@ -46,7 +46,7 @@ class NewsApiController extends BaseController{
 
         );
 
-        $news = News::GetNewsList();
+        $news = News::GetNewsList(40, 0);
 
         $response['code'] = 200;
 
@@ -58,7 +58,7 @@ class NewsApiController extends BaseController{
 
 
 
-    public function GetNewsByIdAction(){
+    public function GetNewsByIDAction(){
 
         $newsID = $this->request->getGetValue('newsID');
 
@@ -80,7 +80,7 @@ class NewsApiController extends BaseController{
 
         $this->json( $response );
 
-    }//GetNewsListAction
+    }//GetNewsByIDAction
 
 
 
