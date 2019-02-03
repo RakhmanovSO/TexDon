@@ -13,16 +13,19 @@
 
     </head>
 <body>
+
+
+
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 
-    <a class="navbar navbar-dark col-sm-3 col-md-2 mr-0" style="font-size: 16pt" href="index.php?ctrl=Home&act=index">TexDon Admin Panel</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php?ctrl=Home&act=index">На сайт TexDon</a>
 
  </nav>
 
- <div class="container-fluid">
-     <div class="row">
-         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-             <div class="sidebar-sticky">
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
                  <ul class="nav flex-column">
                      <li class="nav-item">
                          <a class="nav-link active" href="index.php?ctrl=Home&act=index">
@@ -80,4 +83,7 @@
                          </a>
                      </li>
 
+                 </ul>
+            </div>
          </nav>
+    </div>

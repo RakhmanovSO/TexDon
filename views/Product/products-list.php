@@ -2,25 +2,38 @@
 
     <script defer src="assets/js/product.js"></script>
 
-    <h2>Товары</h2>
+    <h2 style="margin-top: 15px;">Товары:</h2>
 
+
+
+
+        <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
+
+            <div class="p-2 bd-highlight">
+                <input class="form-control" type="text" style="width:700px;"   placeholder="Введите название товара и нажмите поиск" aria-label="Поист товара">
+            </div>
+
+            <div class="p-2 bd-highlight">
+                <div  class="btn btn-success" style=" width:120px; ">Поиск</div>
+            </div>
+        </div>
 
 
 
 
         <div class="form-group">
-            <a href="index.php?ctrl=Product&act=addProduct" class="btn btn-primary">Добавить товар</a>
+            <a href="index.php?ctrl=Product&act=addProduct" class="btn btn-primary">Добавить новый товар</a>
         </div>
 
     <div class="table-responsive">
-        <table class="table table-striped table-sm">
-            <thead>
+        <table class="table table-striped table-sm" >
+            <thead align="center" valign="middle">
             <tr>
-                <th>Id</th>
-                <th>Название</th>
-                <th>Цена</th>
-                <th>Удалить</th>
-                <th>Обновить</th>
+                <th align="center" valign="middle" >ID</th>
+                <th align="center" valign="middle" >Наименование товара</th>
+                <th align="center" valign="middle" >Цена</th>
+                <th align="center" valign="middle" >Обновить/Добавить</th>
+                <th align="center" valign="middle" >Удалить товар</th>
             </tr>
             </thead>
             <tbody>
@@ -28,13 +41,17 @@
 
                 <tr data-product-id="<?= $product->productID ?>" >
 
-                    <td><?= $product->productID ?></td>
-                    <td><?= $product->productTitle ?></td>
-                    <td><?= $product->productPrice ?></td>
+                    <td align="center" > <p style="margin-top: 45px; font-size: 13pt;"> <?= $product->productID ?> </p> </td>
+                    <td > <p style="margin-top: 45px; font-size: 13pt; "> <?= $product->productTitle ?> </p> </td>
+                    <td align="center"> <p style="margin-top: 45px; font-size: 13pt;">  <b> <?= $product->productPrice ?> руб.  </b></p></td>
 
-                    <td><a id ="updateProduct" class="btn btn-primary" href="?ctrl=Product&act=updateProduct&productID=<?= $product->productID ?>" >Обновить</a>
+                    <td align="center">
+                        <a id ="updateProduct" class="btn btn-primary" style="margin-top: 2px; margin-bottom: 5px; " href="?ctrl=Product&act=updateProduct&productID=<?= $product->productID ?>" >Общ. информ.</a> <BR>
+                        <a id ="updateImages" class="btn btn-primary" style="margin-bottom: 5px;" href="?ctrl=Product&act=updateImagesProduct&productID=<?= $product->productID ?>" >Изображения</a> <BR>
+                        <a id ="updateAttributes" class="btn btn-primary" style="margin-bottom: 2px; width:130px; " href="?ctrl=Product&act=updateAttributesProduct&productID=<?= $product->productID ?>" >Атрибуты</a> <BR>
+                    </td>
 
-                    <td><div data-product-id="<?= $product->productID ?>" class="btn btn-danger" >Удалить</div></td>
+                    <td align="center"><div style="margin-top: 45px; width:120px;" data-product-id="<?= $product->productID ?>" class="btn btn-danger" >Удалить</div></td>
 
                 </tr>
             <?php }//foreach ?>
@@ -42,6 +59,12 @@
             </tbody>
         </table>
 
+        <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 45px; margin-bottom: 45px;">
+
+            <div class="p-2 bd-highlight">
+                     <div style="width:250px;"  class="btn btn-success" >Добавить ещё 40 товаров</div>
+            </div>
+        </div>
 
     </div>
 
