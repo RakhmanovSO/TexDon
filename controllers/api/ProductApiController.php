@@ -86,11 +86,11 @@ class ProductApiController extends BaseController{
 
             'message' => 0,
 
-            'data' => 0,
-
-            'images' => 0,
-
-            'attributes' => 0,
+            'data' => [
+                'images' => [],
+                'attributes' => [],
+                'product' => []
+            ],
 
         );
 
@@ -100,18 +100,13 @@ class ProductApiController extends BaseController{
 
         $response['code'] = 200;
 
-        $response['data'] = $product;
+        $response['data']['product'] = $product;
 
 
-        $pathImage = array();
+        $path = ProductImagesPath::GetProductImagePathList($productID, 500 , 0);
 
 
-            $path = ProductImagesPath::GetProductImagePathList($productID, 500 , 0);
-
-            array_push($pathImage, $path);
-
-
-        $response['images'] = $pathImage;
+        $response['data']['images'] = $path;
 
 
         $attributes = array();
@@ -120,7 +115,7 @@ class ProductApiController extends BaseController{
 
         array_push($attributes, $attribut);
 
-        $response['attributes'] = $attribut;
+        $response['data']['attributes'] = $attribut;
 
 
         $this->json( $response );

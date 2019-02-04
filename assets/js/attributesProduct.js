@@ -2,6 +2,29 @@
 
 (function (  ){
 
+    let isNewAttributeRemove = false;
+    let productID = -1;
+    let attributeID = -1;
+
+    $('body').on('click' , '.btn-danger' , ()=>{});
+
+    $('confirmRemove').click(function (  ){
+
+        if(isNewAttributeRemove){
+
+            // DOM remove
+            // return ;
+        }
+
+        //$.ajax
+
+    } );
+
+
+} )();
+
+(function (  ){
+
 
     let attributes = []; // атрибуты продукта
 
@@ -61,7 +84,7 @@
                     
                     <td>${attr.attributeTitle}</td>
                     <td>${attr.attributeValue}</td>
-                    <td><div data-attribute-id=${attr.attributeID} class="btn btn-danger" >Удалить</div></td>
+                    <td><div data-attribute-id=${attr.attributeID} class="btn btn-danger temp" >Удалить</div></td>
                     
                     </tr>
                 `;
@@ -73,26 +96,40 @@
 
 
     /////////////////////////  ??????  Удаление Нового Атрибута из таблицы к добавлению
+    let attributeID = - 1;
+    let productID = - 1;
 
-    let removeNewAttributeButtons = document.querySelectorAll('.btn-danger');
+    $('body').on( 'click' , '.btn-danger' , function (  ){
 
-    let id = -1;
+        attributeID = $(this).data('attribute-id');
 
+        productID = $(this).data('product-id');
 
-    [].forEach.call( removeNewAttributeButtons , ( removeNewAttributeButtons )=>{
+        console.log(attributeID );
 
-        removeNewAttributeButtons.addEventListener('click' , async function (  ){
+        $('#removeOldProductAttributModal').modal();
 
-            id = this.dataset.attributeId;
+    }  );
 
-            console.log(  id  );
-
-            $('#removeNewAttributModal').modal();
-
-        } )
-
-    } );
-
+    // let removeNewAttributeButtons = document.querySelectorAll('.btn-danger');
+    //
+    // let id = -1;
+    //
+    //
+    // [].forEach.call( removeNewAttributeButtons , ( removeNewAttributeButtons )=>{
+    //
+    //     removeNewAttributeButtons.addEventListener('click' , async function (  ){
+    //
+    //         id = this.dataset.attributeId;
+    //
+    //         console.log(  id  );
+    //
+    //         $('#removeNewAttributModal').modal();
+    //
+    //     } )
+    //
+    // } );
+    //
     let confirmRemoveNewAttributButton = document.querySelector('#confirmRemoveNewAttribut');
 
     if(confirmRemoveNewAttributButton ){
@@ -109,43 +146,43 @@
         } );
 
     }//if
-
-
-    /////////////////////////////
-
-
-
-
-    /////////////////////////  ?????? Удаление уже добавленных атрибутов
-
-
-    let removeOldAttributeButtons = document.querySelectorAll('.btn-danger');
-
-    let attributeID = -1;
-    let productID = -1;
-
-    [].forEach.call( removeOldAttributeButtons , ( removeOldAttributeButtons )=>{
-
-        removeOldAttributeButtons.addEventListener('click' , async function (  ){
-
-            attributeID = this.dataset.attribId;
-
-            productID = this.dataset.productId;
-
-
-            console.log(attributeID );
-
-            $('#removeOldProductAttributModal').modal();
-
-        } )
-
-    } );
+    //
+    //
+    // /////////////////////////////
+    //
+    //
+    //
+    //
+    // /////////////////////////  ?????? Удаление уже добавленных атрибутов
+    //
+    //
+    // let removeOldAttributeButtons = document.querySelectorAll('.btn-danger');
+    //
+    // let attributeID = -1;
+    // let productID = -1;
+    //
+    // [].forEach.call( removeOldAttributeButtons , ( removeOldAttributeButtons )=>{
+    //
+    //     removeOldAttributeButtons.addEventListener('click' , async function (  ){
+    //
+    //
+    //
+    //     } )
+    //
+    // } );
 
     let confirmRemoveOldAttributButton = document.querySelector('#confirmRemoveOldProductAttribut');
 
     if(confirmRemoveOldAttributButton ){
 
         confirmRemoveOldAttributButton .addEventListener('click' , function (  ){
+
+            if( removeNewAttribute ){
+
+                $(`tr[data-attribute-id=${$(this).data('attribute-id')}]`).remove();
+                return ;
+
+            }//if
 
             if( attributeID === -1){
                 return;
@@ -155,6 +192,8 @@
             if( productID === -1){
                 return;
             }//if
+
+
 
            $.ajax( `${window.ServerAddress}?ctrl=Product&act=removeProductAttribute`, {
 
