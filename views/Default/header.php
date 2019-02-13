@@ -9,6 +9,7 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.js" ></script>
 
         <script src="bower_components/fetch/fetch.js" ></script>
+
         <script src="assets/js/main.js" ></script>
 
     </head>
@@ -18,7 +19,7 @@
 
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
 
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php?ctrl=Home&act=index">На сайт TexDon</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="http://localhost:5012/TexDonProduction/public/home" style=" color: #FE5B00; font-weight:bold;">На сайт TexDon</a>
 
  </nav>
 

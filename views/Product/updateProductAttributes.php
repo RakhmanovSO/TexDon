@@ -30,14 +30,14 @@
                 </tr>
                 </thead>
 
-                <tbody id="TableAtt">
+                <tbody id="attributesOldTable">
 
                 <?php foreach ( $this->view->attributesProduct as $attrib) { ?>
 
                     <tr data-attrib-id="<?= $attrib->attributeID ?>" >
                         <td>  <?= $attrib->attributeTitle ?> </td>
                         <td>  <?= $attrib->value ?> </td>
-                        <td><div  data-attrib-id="<?= $attrib->attributeID ?>" data-product-id="<?= $attrib->productID ?>" class="btn btn-danger" >Удалить</div></td>
+                        <td><div  data-attrib-id="<?= $attrib->attributeID ?>" data-product-id="<?= $attrib->productID ?>" class="btn btn-danger oldbtn" >Удалить</div></td>
 
                     </tr>
 
@@ -57,7 +57,7 @@
             <label for="attributes" style="font-size: 12pt; "><b>Все Атрибуты для добавления: </b> </label>
 
             <select class="form-control" id="productAttributes">
-                <option value="-1">Добавить атрибут</option>
+                <option value="-1">Выберите название атрибута из списка атрибутов</option>
                 <?php foreach ($this->view->allAttributes as $attribute) { ?>
                     <option
                             value="<?= $attribute->attributeID ?>"
@@ -75,6 +75,9 @@
             <div id="addAttributeToProduct" class="btn btn-primary">Добавить атрибут в список </div>
         </div>
 
+        <div id="errorMessage1" style="display: none" class="alert alert-danger">Введите значение атрибута !</div>
+
+        <div id="errorMessage2" style="display: none" class="alert alert-danger">Вы не выбрали из списка название  атрибута !</div>
 
         <div class="form-group"  style="margin-top: 40px; margin-bottom: 50px;">
             <label for="attributeToProduct" style="font-size: 12pt;"><b>Список атрибутов к добавлению </b></label>
@@ -96,27 +99,6 @@
 
         </div>
 
-        <!-- Удаление новых атрибутов -->
-        <div id="removeNewAttributModal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Сообщение</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Вы действительно хотите удалить атрибут ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-                        <button id="confirmRemoveNewAttribut" type="button" class="btn btn-primary" data-dismiss="modal">Удалить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
 
 
@@ -133,7 +115,30 @@
         <div id="successMessage" style="display: none" class="alert alert-success">Атибуты добавлены успешно !</div>
 
 
-        <!-- Удаление уже добавленных атрибутов -->
+
+        <!-- Удаление новых атрибутов
+        <div id="removeNewAttributModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Сообщение</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы действительно хотите удалить Новый атрибут ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                        <button id="confirmRemoveNewAttribut" type="button" class="btn btn-primary" data-dismiss="modal">Удалить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         -->
+
+        <!-- Удаление уже добавленных (Старых) атрибутов -->
         <div id="removeOldProductAttributModal" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -154,7 +159,7 @@
             </div>
         </div>
 
-
+        <!--  ---------------------------------------------  -->
 
 
     </form>
