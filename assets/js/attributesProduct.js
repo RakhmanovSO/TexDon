@@ -47,7 +47,20 @@
 
             let val = document.querySelector('#attributeValue').value;
 
+            if(!val.match(/^[a-zа-я0-9-*#'№$";_.,!:.,+%()\s]{1,100}$/i)){
+
+                $('#errorMessage1').fadeIn( 100 ).delay(1500).fadeOut(100);
+                return;
+            }//if
+
+
             let exist = attributes.find( attr => attr.attributeID === currentAttribute.attributeID );
+
+            if( exist === undefined){
+
+                $('#errorMessage2').fadeIn( 100 ).delay(1500).fadeOut(100);
+                return;
+            }//if
 
             exist.attributeValue = val;
 
@@ -61,7 +74,7 @@
                     
                     <td>${attr.attributeTitle}</td>
                     <td>${attr.attributeValue}</td>
-                    <td><div data-attribute-id=${attr.attributeID} class="btn btn-danger" >Удалить</div></td>
+                    <td><div data-attribute-id=${attr.attributeID} class="btn btn-danger newbtn" >Удалить</div></td>
                     
                     </tr>
                 `;
@@ -72,74 +85,65 @@
     }//if
 
 
-    /////////////////////////  ??????  Удаление Нового Атрибута из таблицы к добавлению
-
-    let removeNewAttributeButtons = document.querySelectorAll('.btn-danger');
+    /////////////////////////  Удаление Нового Атрибута из таблицы к добавлению
 
     let id = -1;
 
+    $('main').on( 'click' , '.btn.btn-danger.newbtn' , function (  ){
 
-    [].forEach.call( removeNewAttributeButtons , ( removeNewAttributeButtons )=>{
+        id = $(this).data('attribute-id');
 
-        removeNewAttributeButtons.addEventListener('click' , async function (  ){
+        console.log(id, attributes);
 
-            id = this.dataset.attributeId;
+        if( id === -1){
 
-            console.log(  id  );
+            console.log(id, attributes);
 
-            $('#removeNewAttributModal').modal();
+            return;
 
-        } )
+        }//if
 
-    } );
+        let deleteItemArray;
 
-    let confirmRemoveNewAttributButton = document.querySelector('#confirmRemoveNewAttribut');
+        // deleteItemArray = attributes.search(attributes, attributes['attributeID']===id);
 
-    if(confirmRemoveNewAttributButton ){
+        deleteItemArray = attributes.find( attr => attr.attributeID === id);
 
-        confirmRemoveNewAttributButton .addEventListener('click' , function (  ){
+        console.log( deleteItemArray );
 
-            if( id === -1){
-                return;
-            }//if
+        attributes.splice(deleteItemArray , 1);
 
-            $(`tr[data-attribute-id='${id}']`).remove();
 
+        $(`tr[data-attribute-id='${id}']`).remove();
+
+    });
+
+
+
+    /////////////////////////  Удаление уже добавленных атрибутов
+
+      let removeOldAttributeButtons = document.querySelectorAll('.btn.btn-danger.oldbtn');
+
+         let attributeID = -1;
+         let productID = -1;
+
+
+        [].forEach.call( removeOldAttributeButtons , ( removeOldAttributeButtons )=>{
+
+            removeOldAttributeButtons.addEventListener('click' , async function (  ){
+
+                attributeID = this.dataset.attribId;
+
+                productID = this.dataset.productId;
+
+
+                console.log(attributeID,  productID);
+
+                $('#removeOldProductAttributModal').modal();
+
+            } )
 
         } );
-
-    }//if
-
-
-    /////////////////////////////
-
-
-
-
-    /////////////////////////  ?????? Удаление уже добавленных атрибутов
-
-
-    let removeOldAttributeButtons = document.querySelectorAll('.btn-danger');
-
-    let attributeID = -1;
-    let productID = -1;
-
-    [].forEach.call( removeOldAttributeButtons , ( removeOldAttributeButtons )=>{
-
-        removeOldAttributeButtons.addEventListener('click' , async function (  ){
-
-            attributeID = this.dataset.attribId;
-
-            productID = this.dataset.productId;
-
-
-            console.log(attributeID );
-
-            $('#removeOldProductAttributModal').modal();
-
-        } )
-
-    } );
 
     let confirmRemoveOldAttributButton = document.querySelector('#confirmRemoveOldProductAttribut');
 
@@ -183,6 +187,9 @@
 
 //Добавление атрибутов в базу дан.
 
+    let attributesOldTable = document.querySelector('#attributesOldTable');
+
+
     let updateAttributButton = document.querySelector('#updateAttributProduct');
 
 
@@ -223,6 +230,18 @@
                     $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
 
                 }//else
+
+                attributes.forEach( attr => {
+                    attributesOldTable.innerHTML += ` 
+                    <tr data-attrib-id = ${attr.attributeID} >
+                    
+                    <td>${attr.attributeTitle}</td>
+                    <td>${attr.attributeValue}</td>
+                    <td><div data-attrib-id=${attr.attributeID} data-product-id=${productID} class="btn btn-danger oldbtn" >Удалить</div></td>
+                    
+                    </tr>  `;
+                } )  // attributes.forEach
+
 
             }
         });
