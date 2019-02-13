@@ -19,9 +19,13 @@ class ProductApiController extends BaseController{
 
             'message' => 0,
 
-            'data' => 0,
+            'data' => [
+                'images' => [],
+                'product' => []
 
-            'images' => 0,
+            ],
+
+
 
         );
 
@@ -51,22 +55,17 @@ class ProductApiController extends BaseController{
 
         $response['code'] = 200;
 
-        $response['data'] = $products;
+        $response['data']['product'] = $products;
 
-
-
-        $pathImage = array();
 
        foreach ($products as $pr) {
 
             $path = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
 
-            array_push($pathImage, $path);
+            array_push( $response['data']['images'], $path);
 
        }//foreach
 
-
-        $response['images'] = $pathImage;
 
 
         $this->json( $response );
@@ -86,11 +85,12 @@ class ProductApiController extends BaseController{
 
             'message' => 0,
 
-            'data' => 0,
+            'data' => [
+                'images' => [],
+                'attributes' => [],
+                'product' => []
 
-            'images' => 0,
-
-            'attributes' => 0,
+            ],
 
         );
 
@@ -100,27 +100,18 @@ class ProductApiController extends BaseController{
 
         $response['code'] = 200;
 
-        $response['data'] = $product;
+        $response['data']['product'] = $product;
 
 
-        $pathImage = array();
 
+       $pathImages = ProductImagesPath::GetProductImagePathList($productID, 500 , 0);
 
-            $path = ProductImagesPath::GetProductImagePathList($productID, 500 , 0);
-
-            array_push($pathImage, $path);
-
-
-        $response['images'] = $pathImage;
-
-
-        $attributes = array();
+            $response['data']['images'] = $pathImages;
 
        $attribut = ProductAttributes::GetAttributeByProductId($productID);
 
-        array_push($attributes, $attribut);
 
-        $response['attributes'] = $attribut;
+             $response['data']['attributes'] = $attribut;
 
 
         $this->json( $response );

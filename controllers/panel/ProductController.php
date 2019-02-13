@@ -19,12 +19,23 @@ use utils\MySQL;
 class ProductController extends BaseController {
 
     public function productsListAction(){
-        
-        $this->view->products = Product::GetProductList(50, 0);
+
+       // $offset = $this->request->getGetValue('offset');
+
+        $products = Product::GetProductList(3, 0);
+
+        $this->view->products = $products;
+
+
+       // $response = $products;
+
+       // $this->json( $response );
 
         return 'products-list';
 
     }//productsListAction
+
+
 
     public function addProductAction(  ){
 
@@ -59,6 +70,8 @@ class ProductController extends BaseController {
 
             $productID = MySQL::$db->lastInsertId();
 
+
+            /// ???????   $result2 = false   ??????????
 
             $result2 = ProductAndSubcategory::AddProductBySubcategory($productID ,$subcategoryID );
 
@@ -416,7 +429,7 @@ class ProductController extends BaseController {
 
         }//catch
 
-        $this->json( $response );
+               $this->json( $response );
 
 
     }//saveUpdateAttributesProduct
@@ -471,6 +484,26 @@ class ProductController extends BaseController {
         }//catch
 
     }//removeProductAttribute
+
+
+    public function searchPrAction(  ){
+
+        /*
+
+        $response = array(
+            'code' => '' , 'data' => '' , 'message' => ''
+        );
+
+        $this->json( $response );
+
+        * javascript загрузить новую страницу
+        * http://jdevelop.info/articles/html-css-js/200-perekhod-na-druguyu-stranitsu-s-pomoshchyu-javascript
+        *
+        * http://qaru.site/questions/298627/loading-another-html-page-from-javascript
+
+*/
+    } //searchAction
+
 
 
 
