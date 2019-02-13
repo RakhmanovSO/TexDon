@@ -38,7 +38,6 @@ class ProductAndSubcategory{
 
         $result = $stm->execute();
 
-
         if( $result  === false ){
             throw new \Exception(MySQL::$db->errorInfo());
         }//if

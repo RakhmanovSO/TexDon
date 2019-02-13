@@ -162,5 +162,21 @@ class Product{
 
 
 
+    public static function SearchProduct ( $productTitle, $limit = 50, $offset = 0 ){
+
+        $stm = MySQL::$db->prepare ("SELECT * FROM `products`AS pr WHERE `productTitle` LIKE '%$productTitle%' LIMIT  $offset, $limit");
+
+        $stm->bindParam( ":title" ,  $productTitle, \PDO::PARAM_STR);
+
+        $stm->execute();
+
+        $products = $stm->fetchAll(\PDO::FETCH_OBJ);
+
+        return  $products;
+
+    }//SearchProduct
+
+
+
 
 }//Product
