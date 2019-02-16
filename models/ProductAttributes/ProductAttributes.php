@@ -53,6 +53,31 @@ class ProductAttributes {
     }//GetAttributeById
 
 
+    public static function GetProductAttributeByProductId( $productID) {
+
+        $stm = MySQL::$db->prepare("SELECT p.productID, p.productTitle, p.productPrice, p.brandProduct, pratrib.productandattributesID, pratrib.attributeID, atrib.attributeTitle, pratrib.value 
+                                        FROM `products` AS `p` 
+                                        INNER JOIN `productsandattributes` AS `pratrib` ON p.productID = pratrib.productID 
+                                        INNER JOIN `productattributes` AS `atrib` ON pratrib.attributeID = atrib.attributeID 
+                                        WHERE p.productID = :id ");
+
+        $stm->bindParam( ":id" ,  $productID, \PDO::PARAM_INT);
+
+        $stm->execute();
+
+        $attribut = $stm->fetchAll(\PDO::FETCH_OBJ);
+
+
+        if(  $attribut === false ){
+            throw new \Exception(MySQL::$db->errorInfo());
+        }//if
+
+        return  $attribut;
+
+    }//GetProductById
+
+
+
 
     public static function AddNewAttribute( $attributeTitle ){
 

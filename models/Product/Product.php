@@ -65,10 +65,11 @@ class Product{
 
     public static function GetProductBySubcategoryId( $subcategoryID,  $limit = 50, $offset = 0) {
 
-        $stm = MySQL::$db->prepare("SELECT * FROM `subcategoriesandproducts` AS `subpr` 
-                        INNER JOIN `subcategories` AS `sc` ON subpr.subcategoryID = sc.subcategoryID 
-                        INNER JOIN `products` AS `p` ON subpr.productID = p.productID 
-                        WHERE sc.subcategoryID = :id LIMIT $offset, $limit");
+        $stm = MySQL::$db->prepare("SELECT subpr.subcategoryandproductID, sc.subcategoryID, sc.subcategoryTitle, p.productID, p.productTitle, p.productPrice, p.brandProduct 
+                                        FROM `subcategoriesandproducts` AS `subpr` 
+                                        INNER JOIN `subcategories` AS `sc` ON subpr.subcategoryID = sc.subcategoryID 
+                                        INNER JOIN `products` AS `p` ON subpr.productID = p.productID 
+                                        WHERE sc.subcategoryID = :id LIMIT $offset, $limit");
 
         $stm->bindParam( ":id" ,  $subcategoryID, \PDO::PARAM_INT);
 
@@ -84,6 +85,9 @@ class Product{
         return $product;
 
     }//GetProductById
+
+
+
 
 
 
@@ -161,20 +165,6 @@ class Product{
     }//DeleteProduct
 
 
-
-    public static function SearchProduct ( $productTitle, $limit = 50, $offset = 0 ){
-
-        $stm = MySQL::$db->prepare ("SELECT * FROM `products`AS pr WHERE `productTitle` LIKE '%$productTitle%' LIMIT  $offset, $limit");
-
-        $stm->bindParam( ":title" ,  $productTitle, \PDO::PARAM_STR);
-
-        $stm->execute();
-
-        $products = $stm->fetchAll(\PDO::FETCH_OBJ);
-
-        return  $products;
-
-    }//SearchProduct
 
 
 
