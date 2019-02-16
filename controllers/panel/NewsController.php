@@ -206,15 +206,43 @@ class NewsController extends BaseController{
 
     public function removeNewsAction(){
 
-        $newsID = $this->request->getGetValue('newsID');
+        $newsID = $this->request->getDeleteValue('newsID');
 
         $response = array(
             'code' => '' , 'data' => '' , 'message' => ''
         );
 
-        try{
+        try {
+
+            $path = News::GetNewsById($newsID);
+
+
+            if ($path->imagePath2 === null) {
+
+                $imagePath1 = "E:/Games/wamp64/www$path->imagePath1";
+                unlink($imagePath1); // удаление файла по пути
+
+            } //if
+            else if ($path->imagePath1 === null){
+                $imagePath2 = "E:/Games/wamp64/www$path->imagePath2";
+                unlink($imagePath2); // удаление файла по пути
+            }
+            else if ($path->imagePath1 === null && $path->imagePath2 === null){
+
+            }
+            else {
+
+                $imagePath1 = "E:/Games/wamp64/www$path->imagePath1";
+                unlink($imagePath1); // удаление файла по пути
+
+                $imagePath2 = "E:/Games/wamp64/www$path->imagePath2";
+                unlink($imagePath2); // удаление файла по пути
+
+            }// else
+
 
             $result = News::DeleteNews($newsID);
+
 
             $response['code'] = 200;
             $response['message'] = 'Новость удалена успешно!';

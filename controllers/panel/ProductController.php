@@ -20,21 +20,46 @@ class ProductController extends BaseController {
 
     public function productsListAction(){
 
-       // $offset = $this->request->getGetValue('offset');
 
         $products = Product::GetProductList(3, 0);
 
         $this->view->products = $products;
 
-
-       // $response = $products;
-
-       // $this->json( $response );
-
         return 'products-list';
 
     }//productsListAction
 
+
+    public function moreProductsAction(){
+
+        $offset = $this->request->getGetValue('offset');
+
+        $response = array(
+            'code' => '', 'data' => '', 'message' => ''
+        );
+
+        try {
+
+            $products = Product::GetProductList(3, $offset);
+
+            $response['code'] = 200;
+            $response['data'] = $products;
+
+        }
+        catch( \Exception $ex ){
+
+            $response['code'] = 400;
+            $response['message'] = $ex->getMessage();
+            $response['data'] = array(
+                '$offset' => $offset,
+            );
+
+        }//catch
+
+        $this->json($response);
+
+
+    }//moreProducts
 
 
     public function addProductAction(  ){

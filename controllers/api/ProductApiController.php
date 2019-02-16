@@ -13,6 +13,8 @@ class ProductApiController extends BaseController{
 
     public function GetProductsListAction(){
 
+        // http://localhost:5012/TexDon/index.php?ctrl=ProductApi&act=GetProductsList&subcategoryID=1&XDEBUG_SESSION_START=16335
+
         $response = array(
 
             'code' => 0,
@@ -20,12 +22,10 @@ class ProductApiController extends BaseController{
             'message' => 0,
 
             'data' => [
+                'product' => [],
+                'attributes' => [],
                 'images' => [],
-                'product' => []
-
             ],
-
-
 
         );
 
@@ -65,6 +65,16 @@ class ProductApiController extends BaseController{
             array_push( $response['data']['images'], $path);
 
        }//foreach
+
+
+        foreach ($products as $pr) {
+
+            $attribut = ProductAttributes::GetProductAttributeByProductId($pr->productID);
+
+            array_push( $response['data']['attributes'], $attribut);
+
+        }//foreach
+
 
 
 

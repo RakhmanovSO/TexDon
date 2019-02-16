@@ -16,6 +16,7 @@ class SearchController extends BaseController {
 
         $product = Search::SearchProduct($productTitle, 50, 0);
 
+
         if (count($product) === 0) {
 
             $product = "По вашему запросу - $productTitle  ничего не найдено !!! Попробуйте ввести другое название. ";
@@ -33,7 +34,12 @@ class SearchController extends BaseController {
 
         return 'searchProduct';
 
+
     }//searchProduct
+
+
+
+
 
 
 }//SearchController
