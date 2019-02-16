@@ -88,7 +88,7 @@
                     if(response.code === 200){
                         $('#errorMessage').fadeOut(100);
                         $('#successMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
-                    }//else
+                    }//if
                     else{
 
                         $('#successMessage').fadeOut(100);
@@ -104,7 +104,7 @@
                     if (response.code === 200) {
                         $('#errorMessage').fadeOut(100);
                         $('#successMessage').fadeIn(100).delay(2500).fadeOut(100);
-                    }//else
+                    }//if
                     else {
 
                         $('#successMessage').fadeOut(100);
@@ -232,7 +232,7 @@
 
                     console.log('response', response);
 
-                    if (response.code === 200) {
+                    if (response.code === 200 ) {
                         $('#errorMessage').fadeOut(100);
                         $('#successMessage').fadeIn(100).delay(2500).fadeOut(100);
                     }//else
