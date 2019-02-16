@@ -16,8 +16,17 @@
         <div class="p-2 bd-highlight">
             <div id="searchProduct" class="btn btn-success"   style=" width:120px; ">Поиск</div>
         </div>
+
     </div>
-    <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа! </div>
+    <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
+        <div class="p-2 bd-highlight">
+            <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа!
+            </div>
+        </div>
+    </div>
+
+
+
 
     <div class="table-responsive">
         <table class="table table-striped table-sm" >
@@ -56,13 +65,6 @@
 
             </tbody>
         </table>
-
-        <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 45px; margin-bottom: 45px;">
-
-            <div class="p-2 bd-highlight">
-                <div style="width:250px;"  class="btn btn-success" >Добавить ещё 40 товаров</div>
-            </div>
-        </div>
 
     </div>
 

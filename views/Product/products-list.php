@@ -17,11 +17,18 @@
                 <div id="searchProduct" class="btn btn-success"   style=" width:120px; ">Поиск</div>
             </div>
         </div>
-    <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа! </div>
+
+    <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
+        <div class="p-2 bd-highlight">
+            <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа!
+            </div>
+        </div>
+    </div>
 
 
 
-        <div class="form-group">
+
+    <div class="form-group">
             <a href="index.php?ctrl=Product&act=addProduct" class="btn btn-primary">Добавить новый товар</a>
         </div>
 
