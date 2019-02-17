@@ -22,9 +22,7 @@ class ProductApiController extends BaseController{
             'message' => 0,
 
             'data' => [
-                'product' => [],
-                'attributes' => [],
-                'images' => [],
+                'products' => [],
             ],
 
         );
@@ -52,30 +50,19 @@ class ProductApiController extends BaseController{
         $products = Product::GetProductBySubcategoryId($subcategoryID, $limit , $offset);
 
 
-
         $response['code'] = 200;
-
-        $response['data']['product'] = $products;
-
 
        foreach ($products as $pr) {
 
-            $path = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
+            $images = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
+            $attributes = ProductAttributes::GetProductAttributeByProductId($pr->productID);
 
-            array_push( $response['data']['images'], $path);
+            $pr->images = $images;
+            $pr->attributes = $attributes;
 
        }//foreach
 
-
-        foreach ($products as $pr) {
-
-            $attribut = ProductAttributes::GetProductAttributeByProductId($pr->productID);
-
-            array_push( $response['data']['attributes'], $attribut);
-
-        }//foreach
-
-
+        $response['data']['products'] = $products;
 
 
         $this->json( $response );
