@@ -32,28 +32,6 @@
                 /*
                success: ( response )=>{
 
-                   console.log('RESPONSE' , response);
-
-                   response = new FormData();
-
-                   $.ajax({
-                       url: `${window.ServerAddress}?ctrl=Product&act=searchProduct`,
-
-                       data: response,
-                       processData: false,
-                       contentType: false,
-                       type: "POST",
-                       success:  (response)=> {
-                           console.log( 'response' , response );
-                       },
-                       error: (response)=> {
-                           console.log('response', response);
-                       }
-
-                   }); // ajax
-
-                   /*
-
                    jQuery.parseJSON(response);
 
                    let productsTable = document.querySelector('#productsTable');

@@ -76,7 +76,7 @@
             newsData.append('textNews', textNews);
 
             $.ajax({
-                url:  `${window.ServerAddress}?ctrl=News&act=addNews&XDEBUG_SESSION_START=11010`,
+                url:  `${window.ServerAddress}?ctrl=News&act=addNews`,
                 data: newsData,
                 processData: false,
                 contentType: false,
