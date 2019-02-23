@@ -16,17 +16,11 @@ class ProductApiController extends BaseController{
         // http://localhost:5012/TexDon/index.php?ctrl=ProductApi&act=GetProductsList&subcategoryID=1&XDEBUG_SESSION_START=16335
 
         $response = array(
-
             'code' => 0,
-
             'message' => 0,
-
             'data' => [
-                'product' => [],
-                'attributes' => [],
-                'images' => [],
+                'products' => [],
             ],
-
         );
 
         $subcategoryID = $this->request->getGetValue('subcategoryID');
@@ -36,47 +30,29 @@ class ProductApiController extends BaseController{
         $offset = $this->request->getGetValue('offset');
 
         if(empty($limit) || $limit < 1){
-
             $limit = 50;
-
         }//if
-
-
         if(empty($offset) || $offset < 1 ){
-
             $offset = 0;
-
         }//if
-
 
         $products = Product::GetProductBySubcategoryId($subcategoryID, $limit , $offset);
 
-
-
         $response['code'] = 200;
-
-        $response['data']['product'] = $products;
-
-
-       foreach ($products as $pr) {
-
-            $path = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
-
-            array_push( $response['data']['images'], $path);
-
-       }//foreach
-
 
         foreach ($products as $pr) {
 
-            $attribut = ProductAttributes::GetProductAttributeByProductId($pr->productID);
+            $images = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
 
-            array_push( $response['data']['attributes'], $attribut);
+            $attributes = ProductAttributes::GetProductAttributeByProductId($pr->productID);
+
+            $pr->images = $images;
+
+            $pr->attributes = $attributes;
 
         }//foreach
 
-
-
+        $response['data']['products'] = $products;
 
         $this->json( $response );
 
@@ -107,11 +83,9 @@ class ProductApiController extends BaseController{
 
         $product = Product::GetProductById($productID);
 
-
         $response['code'] = 200;
 
         $response['data']['product'] = $product;
-
 
 
        $pathImages = ProductImagesPath::GetProductImagePathList($productID, 500 , 0);

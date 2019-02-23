@@ -34,6 +34,15 @@ class SearchController extends BaseController {
 
         return 'searchProduct';
 
+       // $response['code'] = 200;
+       // $response['message'] = '';
+
+        $response['data'] = array(
+            'result' => $result,
+            'result2' =>  $result2
+        );
+
+        //  $this->json( $response );
 
     }//searchProduct
 

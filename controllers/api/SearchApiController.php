@@ -20,22 +20,16 @@ class SearchApiController extends BaseController {
 
         $productTitle = $this->request->getGetValue('productTitle');
 
+
         $response = array(
-
             'code' => 0,
-
             'message' => 0,
-
             'data' => [
-                'images' => [],
-                'attributes' => [],
-                'product' => []
-
+                'products' => [],
             ],
-
         );
 
-        $products = Search::SearchProduct( $productTitle);
+        $products = Search::SearchProduct($productTitle);
 
 
         if (count($products) === 0) {
@@ -50,27 +44,19 @@ class SearchApiController extends BaseController {
 
         else{
 
-            $response['code'] = 200;
-
-            $response['data']['product'] = $products;
-
-
             foreach ($products as $pr) {
 
-                $attribut = ProductAttributes::GetProductAttributeByProductId($pr->productID);
+                $images = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
 
-                array_push( $response['data']['attributes'], $attribut);
+                $attributes = ProductAttributes::GetProductAttributeByProductId($pr->productID);
+
+                $pr->images = $images;
+
+                $pr->attributes = $attributes;
 
             }//foreach
 
-            foreach ($products as $pr) {
-
-                $path = ProductImagesPath::GetProductImagePathList($pr->productID, 1);
-
-                array_push( $response['data']['images'], $path);
-
-            }//foreach
-
+            $response['data']['products'] = $products;
 
         }// else
 

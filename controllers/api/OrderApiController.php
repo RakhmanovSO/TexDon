@@ -39,8 +39,10 @@ class OrderApiController extends BaseController{
 
         $this->json(
             array(
-            'order' => $newOrder,
-            'orderDetails' => $orderDetails
+                'code' => 200,
+                'message' => "Заказ оформлен !",
+                'order' => $newOrder,
+                'orderDetails' => $orderDetails
             )
         );
 
