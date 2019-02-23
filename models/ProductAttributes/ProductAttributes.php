@@ -55,7 +55,7 @@ class ProductAttributes {
 
     public static function GetProductAttributeByProductId( $productID) {
 
-        $stm = MySQL::$db->prepare("SELECT p.productID, p.productTitle, p.productPrice, p.brandProduct, pratrib.productandattributesID, pratrib.attributeID, atrib.attributeTitle, pratrib.value 
+        $stm = MySQL::$db->prepare("SELECT p.productID, p.productPrice, p.brandProduct, pratrib.productandattributesID, pratrib.attributeID, atrib.attributeTitle, pratrib.value 
                                         FROM `products` AS `p` 
                                         INNER JOIN `productsandattributes` AS `pratrib` ON p.productID = pratrib.productID 
                                         INNER JOIN `productattributes` AS `atrib` ON pratrib.attributeID = atrib.attributeID 
