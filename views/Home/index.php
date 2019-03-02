@@ -18,7 +18,7 @@
     </div>
 
     <div class="p-2 bd-highlight">
-        <div id="searchProduct" class="btn btn-success"   style=" width:120px; ">Поиск</div>
+        <div id="searchProduct" class="btn btn-success"  href="?ctrl=Search&act=searchProduct"  style=" width:120px; ">Поиск</div>
     </div>
 </div>
 <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
