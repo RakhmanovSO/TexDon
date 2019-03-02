@@ -29,10 +29,13 @@
                 data: {
                     'productTitle': productTitle
                 },
-                /*
+
                success: ( response )=>{
 
+                    /*
                    jQuery.parseJSON(response);
+
+                   console.log(response);
 
                    let productsTable = document.querySelector('#productsTable');
 
@@ -58,10 +61,10 @@
                        `;
                    });
 
-
+                        */
 
                 }//success
-                */
+
 
             } );
         });

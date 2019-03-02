@@ -65,9 +65,9 @@
 
 
             $.ajax({
-                //url: `${window.ServerAddress}?ctrl=Product&act=addNewProduct`,
+                url: `${window.ServerAddress}?ctrl=Product&act=addNewProduct`,
 
-                 url: "http://localhost:5012/TexDon/index.php?ctrl=Product&act=addNewProduct&XDEBUG_SESSION_START=14416",
+                // url: "http://localhost:5012/TexDon/index.php?ctrl=Product&act=addNewProduct&XDEBUG_SESSION_START=14416",
                 data: productData,
                 processData: false,
                 contentType: false,

@@ -122,6 +122,7 @@
 
     /////////////////////////  Удаление уже добавленных атрибутов
 
+    /*
       let removeOldAttributeButtons = document.querySelectorAll('.btn.btn-danger.oldbtn');
 
          let attributeID = -1;
@@ -144,6 +145,36 @@
             } )
 
         } );
+
+
+        */
+
+    let attributeID = -1;
+    let productID = -1;
+
+    $('main').on( 'click' , '.btn-danger' , function (  ){
+
+        productID = $(this).data('product-id');
+
+        attributeID = $(this).data('attrib-id');
+
+        console.log(productID);
+        console.log( attributeID);
+
+        if( productID === -1){
+            console.log(productID);
+            return;
+        }//if
+
+        if( attributeID === -1){
+            console.log(attributeID);
+            return;
+        }//if
+
+        $('#removeOldProductAttributModal').modal();
+
+    });
+
 
     let confirmRemoveOldAttributButton = document.querySelector('#confirmRemoveOldProductAttribut');
 
