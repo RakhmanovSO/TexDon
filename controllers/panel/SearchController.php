@@ -32,15 +32,16 @@ class SearchController extends BaseController {
 
         }// else
 
+
+
         return 'searchProduct';
+
+        require('localhost:5012/TexDon/views/Search/searchProduct.php');
 
        // $response['code'] = 200;
        // $response['message'] = '';
 
-        $response['data'] = array(
-            'result' => $result,
-            'result2' =>  $result2
-        );
+       //   $response['data'] = $product;
 
         //  $this->json( $response );
 

@@ -98,7 +98,7 @@ class ProductController extends BaseController {
 
             /// ???????   $result2 = false   ??????????
 
-            $result2 = ProductAndSubcategory::AddProductBySubcategory($productID ,$subcategoryID );
+            $result2 = ProductAndSubcategory::AddProductBySubcategory($subcategoryID, $productID);
 
 
             $response['code'] = 200;

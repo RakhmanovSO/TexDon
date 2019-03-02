@@ -25,6 +25,9 @@ class OrderApiController extends BaseController{
 
         $orderDetails = $_POST['orderDetails'];
 
+        /// Если $_POST = 0 то Получить данные на сервере можно следующим образом:
+        ///$orderDetails = json_decode(file_get_contents('php://input'), true);
+
 
         $newOrder = Order::AddNewOrder($userFirstAndLastName,  $userContactNumberPhone, $userEmail, $deliveryAddressOrder, $commentToTheOrder,  $dateAndTimeOrder );
 

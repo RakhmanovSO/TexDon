@@ -10,6 +10,17 @@ class MainController extends BaseController {
     public function start(  ){
 
 
+        date_default_timezone_set('Europe/Moscow');
+
+
+        session_start([
+            'cookie_lifetime' => 86400,
+        ]);
+
+
+
+
+
         $controller = $this->request->getGetValue('ctrl');
         $action = $this->request->getGetValue('act');
 
