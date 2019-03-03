@@ -19,9 +19,9 @@ class BaseController{
 
     }//__construct
 
-    public function redirect(  ){
+    public function redirect( $location ){
 
-
+        header("location:$location");
 
     }
 

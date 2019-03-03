@@ -1,0 +1,17 @@
+{
+    "name": "tex-don",
+    "authors": [
+    ],
+    "require": {
+        "bramus/router": "^1.4"
+    },
+    "autoload":{
+
+      "psr-4":{
+        "application\\": "application/",
+        "application\\controllers\\api\\": "application/controllers/api/",
+        "application\\controllers\\panel\\": "application/controllers/panel/"
+      }
+
+    }
+}

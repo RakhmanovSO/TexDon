@@ -4,7 +4,6 @@
 namespace controllers\panel;
 use utils\MySQL;
 
-
 class MainController extends BaseController {
 
     public function start(  ){
@@ -16,9 +15,6 @@ class MainController extends BaseController {
         session_start([
             'cookie_lifetime' => 86400,
         ]);
-
-
-
 
 
         $controller = $this->request->getGetValue('ctrl');
@@ -41,6 +37,7 @@ class MainController extends BaseController {
         $controllerClass = "controllers\\panel\\{$controller}Controller";
 
         $isApi = false;
+
 
         if(class_exists($controllerClass)){
             $controllerInstance = new $controllerClass();
