@@ -32,7 +32,20 @@ class CategoryController extends BaseController {
 
         try{
 
+            $category = Category::GetCategoryById($categoryID);
+
             $result = Category::DeleteCategory( $categoryID );
+
+
+
+            if ($result == true) {
+
+                    $imagePath = "E:/Games/wamp64/www$category->categoryImagePath";
+
+                    unlink($imagePath);
+
+            }// if
+
 
             $response['code'] = 200;
             $response['message'] = 'Категория удалена!';
@@ -70,6 +83,28 @@ class CategoryController extends BaseController {
         $categoryID = $this->request->getPostValue('categoryID');
         $categoryTitle = $this->request->getPostValue('categoryTitle');
 
+
+        $name1 = $_FILES['categoryImagePath']['name'];
+
+        if ($name1 == null){
+
+            $categoryImagePath = $this->request->getPostValue('categoryImagePath');
+
+        }//if
+        else {
+
+            $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/category";
+
+            $categoryImagePath = "/TexDon/assets/images/category/$name1";
+
+            mkdir($imagePath);
+
+            $imagePath .= "/$name1";
+
+            $resultUploadedFile1 = move_uploaded_file($_FILES['categoryImagePath']['tmp_name'], $imagePath);
+
+        }// else
+
         $response = array(
             'code' => -1,
             'message' => '',
@@ -78,7 +113,7 @@ class CategoryController extends BaseController {
 
         try{
 
-            Category::UpdateCategory( $categoryID , $categoryTitle );
+            Category::UpdateCategory( $categoryID , $categoryTitle, $categoryImagePath);
 
             $response['code'] = 200;
             $response['message'] = 'Категория обновлена успешно!';
@@ -86,11 +121,12 @@ class CategoryController extends BaseController {
         }//try
         catch( \Exception $ex ){
 
-            $response['code'] = 500;
+            $response['code'] = 400;
             $response['message'] = $ex->getMessage();
             $response['data'] = array(
                 'categoryID' => $categoryID,
                 'categoryTitle' => $categoryTitle,
+                'resultUploadedFile1' => $resultUploadedFile1,
             );
 
         }//catch

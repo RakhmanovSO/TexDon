@@ -9,7 +9,7 @@ use utils\MySQL;
 class Admin {
 
 /*
-        login   password
+      login          password
 
 AdminTexDonGeneral  TexDon-2019
 
@@ -17,6 +17,7 @@ AdminTexDonFirst  TexDonAdmin-01
 
 AdminTexDonSecond  TexDonAdmin-02
  */
+
 
     public $adminID;
     public $login;
@@ -71,21 +72,21 @@ AdminTexDonSecond  TexDonAdmin-02
 
 
 
-    public  static function DeleteUser ($password){
+    public  static function DeleteAdmin ($adminID){
 
-        $stm = MySQL::$db->prepare("DELETE FROM `admins` WHERE password = :userPassword");
+        $stm = MySQL::$db->prepare("DELETE FROM `admins` WHERE `adminID` = :id");
 
-        $stm->bindParam(':userPassword', $password , \PDO::PARAM_STR);
+        $stm->bindParam(':id', $adminID , \PDO::PARAM_INT);
 
-        $user = $stm->execute();
+        $admin = $stm->execute();
 
-        if(  $user === false ){
+        if(  $admin === false ){
 
             throw new \Exception(MySQL::$db->errorInfo());
 
         }//if
 
-        return  $user;
+        return $admin;
 
     }//DeleteUser
 
@@ -118,6 +119,19 @@ AdminTexDonSecond  TexDonAdmin-02
     }//GetAllUsers
 
 
+
+
+    public  static function GetAdminByAdminID($adminID){
+
+        $stm = MySQL::$db->prepare("SELECT * FROM `admins` WHERE `adminID`= :id ");
+
+        $stm->bindParam(':id', $adminID , \PDO::PARAM_INT);
+
+        $stm->execute();
+
+        return $stm->fetch(\PDO::FETCH_OBJ);
+
+    }//GetAdminByAdminID
 
 
 

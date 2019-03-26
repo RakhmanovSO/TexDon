@@ -124,7 +124,7 @@ class NewsController extends BaseController{
 
     public function saveUpdateNewsAction(){
 
-        $newsID = $this->request->getPostValue('$newsID');
+        $newsID = $this->request->getPostValue('newsID');
 
         $titleNews = $this->request->getPostValue('titleNews');
 
@@ -141,29 +141,58 @@ class NewsController extends BaseController{
 
         $name1 = $_FILES['imagePath1']['name'];
 
-        $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+        if ($name1 == null){
 
-        $imagePath1 ="/TexDon/assets/images/news/$name1";
+            $imagePath1 = $this->request->getPostValue('imagePath1');
 
-        mkdir($newsImagePath1);
+            if($imagePath1 === null || $imagePath1 === NULL || $imagePath1 === "null" || $imagePath1 === "NULL"){
 
-        $newsImagePath1 .="/$name1";
+                $imagePath1 = NULL;
 
-        $resultUploadedFile1 =  move_uploaded_file( $_FILES['imagePath1']['tmp_name'] , $newsImagePath1);
+            }//if
 
+        }
+        else {
+
+            $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+
+            $imagePath1 = "/TexDon/assets/images/news/$name1";
+
+            mkdir($newsImagePath1);
+
+            $newsImagePath1 .= "/$name1";
+
+            $resultUploadedFile1 = move_uploaded_file($_FILES['imagePath1']['tmp_name'], $newsImagePath1);
+
+        }
 //////////////////////////////////// image 2
 
         $name2 = $_FILES['imagePath2']['name'];
 
-        $newsImagePath2 = "E:/Games/wamp64/www/TexDon/assets/images/news";
 
-        $imagePath2 ="/TexDon/assets/images/news/$name2";
+        if ($name2 == null){
 
-        mkdir($newsImagePath2);
+            $imagePath2 = $this->request->getPostValue('imagePath2');
 
-        $newsImagePath2 .="/$name2";
+            if($imagePath2 === null || $imagePath2 === NULL || $imagePath2 === "null" || $imagePath2 === "NULL"){
 
-        $resultUploadedFile2 =  move_uploaded_file( $_FILES['imagePath2']['tmp_name'] , $newsImagePath2);
+                $imagePath2 = NULL;
+
+            }//if
+
+        }
+        else {
+
+            $newsImagePath2 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+
+            $imagePath2 = "/TexDon/assets/images/news/$name2";
+
+            mkdir($newsImagePath2);
+
+            $newsImagePath2 .= "/$name2";
+
+            $resultUploadedFile2 = move_uploaded_file($_FILES['imagePath2']['tmp_name'], $newsImagePath2);
+        }
 
 ////////////////////////////////////  result
 

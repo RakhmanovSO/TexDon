@@ -109,7 +109,7 @@ class News{
 
     public static function UpdateNews( $newsID, $titleNews, $dateNews, $textNews, $newsTypeID, $imagePath1, $imagePath2, $displayOnTheHomePage ) {
 
-        $stm = MySQL::$db->prepare("UPDATE `news` SET `titleNews`= :title, `dateNews`= :dateNews,`textNews`= :text,`newsTypeID`= :newsTypeID,`imagePath1`= :path1, `imagePath2`= :path1,`displayOnTheHomePage`= :display WHERE `newsID`= :id");
+        $stm = MySQL::$db->prepare("UPDATE `news` SET `titleNews`= :title, `dateNews`= :dateNews,`textNews`= :text,`newsTypeID`= :newsTypeID,`imagePath1`= :path1, `imagePath2`= :path2,`displayOnTheHomePage`= :display WHERE `newsID`= :id");
 
 
         $stm->bindParam( ":id" , $newsID , \PDO::PARAM_INT);

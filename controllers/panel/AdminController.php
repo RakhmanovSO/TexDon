@@ -66,6 +66,86 @@ class AdminController extends BaseController {
     }//addNewAdmin
 
 
+    public function deleteAdminAction(){
+
+        $adminID = $this->request->getGetValue('adminID');
+
+        $admin = Admin::GetAdminByAdminID($adminID);
+
+        $this->view->admin = $admin;
+
+        return 'deleteAdmin';
+
+    }//addNewAdmin
+
+
+    public function saveDeleteAdminAction(){
+
+        $adminID = $this->request->getPostValue('adminID');
+        $password = $this->request->getPostValue('password');
+
+        $response = array(
+            'code' => -1,
+            'message' => '',
+            'data' => ''
+        );
+
+        try {
+            $admin = Admin::GetAdminByAdminID($adminID);
+
+            $hash = $admin->password;
+
+            if (password_verify($password, $hash)) {
+
+                $result = Admin::DeleteAdmin($adminID);
+
+                    if ( $result == true){
+
+                        $response['code'] = 200;
+                        $response['message'] = "Администратор удален успешно !";
+                        $response['data'] = array(
+                            'adminID' => $adminID,
+                            'Verification was successful' => "Администратор удален успешно!"
+                        );
+
+                    }//if
+                    else{
+                        $response['code'] = 401;
+                        $response['message'] = "Администратора не удалось удалить ! (Verification password was successful)";
+                        $response['data'] = array(
+                            'adminID' => $adminID,
+                            'Verification password was successful' => "Администратор не удален что-то пошло не так!"
+                        );
+
+                    }//else
+
+            }
+            else {
+
+                $response['code'] = 401;
+                $response['message'] = "Введен неверный пароль ! (Verification password - fail)";
+                $response['data'] = array(
+                    'adminID' => $adminID,
+                    'password' => $password,
+                    );
+            }//else
+        }//try
+        catch( \Exception $ex ){
+
+                $response['code'] = 400;
+                $response['message'] = $ex->getMessage();
+                $response['data'] = array(
+                    'adminID' => $adminID,
+                    'password' => $password,
+                    'admin' => $admin, );
+            }//catch
+
+        $this->json($response);
+
+    }//saveDeleteAdminAction
+
+
+
     public function getCurrentUser(){
 
         $user = null;

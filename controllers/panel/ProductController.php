@@ -96,8 +96,6 @@ class ProductController extends BaseController {
             $productID = MySQL::$db->lastInsertId();
 
 
-            /// ???????   $result2 = false   ??????????
-
             $result2 = ProductAndSubcategory::AddProductBySubcategory($subcategoryID, $productID);
 
 
@@ -154,7 +152,7 @@ class ProductController extends BaseController {
 
                     $imagePath = "E:/Games/wamp64/www$path->productImagePath";
 
-                    unlink($imagePath); // удаление файла по пути path  ???????????   http://localhost:5012
+                    unlink($imagePath);
                 }
 
             }//if

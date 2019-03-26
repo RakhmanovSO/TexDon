@@ -14,7 +14,7 @@
             let productTitle = titleInput.value.trim();
 
 
-            if(!productTitle.match(/^[a-zа-я0-9-_,..,/*()$&'""{}:;#№;!&@ёЁ\s]{2,198}$/i)){
+            if(!productTitle.match(/^[a-zа-я0-9-_,..,/*()$&'""{}:;№;!&@ёЁ\s]{3,198}$/i)){
 
                 $('#errorMessage1').fadeIn( 100 ).delay(1500).fadeOut(100);
 
@@ -22,7 +22,7 @@
 
             }//if
 
-
+/*
             $.ajax( `${window.ServerAddress}?ctrl=Search&act=searchProduct`, {
                // $.ajax( "http://localhost:5012/TexDon/index.php?ctrl=Search&act=searchProduct&XDEBUG_SESSION_START=13160", {
                 method: 'POST',
@@ -32,7 +32,7 @@
 
                success: ( response )=>{
 
-                    /*
+
                    jQuery.parseJSON(response);
 
                    console.log(response);
@@ -61,12 +61,13 @@
                        `;
                    });
 
-                        */
 
                 }//success
 
 
-            } );
+            } );  // ajax
+        */
+
         });
     }//if
 

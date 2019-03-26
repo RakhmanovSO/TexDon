@@ -12,7 +12,7 @@
 
             let titleNews = document.querySelector('#titleNews').value.trim();
 
-            if(!titleNews.match(/^[a-zа-я0-9-_\s]{2,198}$/i)){
+            if(!titleNews.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.%,()-;::;!?№+*$&@]{2,198}$/i)){
 
                 $('#successMessage').fadeOut(100);
                 $('#errorMessage').text('Вы ввели не некорректный заголовок для новости!');
@@ -50,7 +50,7 @@
 
             let textNews = textInput.value.trim();
 
-            if( !textNews.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.,()-;::;!?№+*$&@]{10,2498}$/i) ){
+            if( !textNews.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.%,()-;::;!?№+*$&@]{10,2498}$/i) ){
 
                 $('#successMessage').fadeOut(100);
                 $('#errorMessage').text('Вы не ввели текст новости или введено слишком большой текст');
@@ -137,7 +137,7 @@
 
             let newsID = +titleInput.dataset.newsId;
 
-            if(!titleNews.match(/^[a-zа-я0-9-_\s]{2,198}$/i)){
+            if(!titleNews.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.,()-;::;!%?№+*$&@]{2,198}$/i)){
 
                 $('#successMessage').fadeOut(100);
                 $('#errorMessage').text('Вы ввели не некорректное название для новости!');
@@ -152,8 +152,9 @@
 
             if( imagePath1 === undefined || imagePath1 === NaN ){
 
-                let path = document.querySelector('#imgPath1');
-                imagePath1 = path.dataset.niwspath1;
+                let path1 = document.querySelector('#imgPath1');
+
+                imagePath1 = path1.dataset.niwspath1;
 
             }//if
 
@@ -161,8 +162,18 @@
 
             if( imagePath2 === undefined || imagePath2 === NaN ){
 
-                let path = document.querySelector('#imgPath2');
-                imagePath2 = path.dataset.niwspath2;
+                let path2 = document.querySelector('#imgPath2');
+
+                if( path2 === undefined || path2 === NaN || path2 === null){
+
+                    imagePath2 = null;
+
+                }
+                else{
+
+                     imagePath2 = path2.dataset.niwspath2;
+
+                }//else
 
             }//if
 
@@ -179,7 +190,7 @@
 
             let textNews = textInput.value.trim();
 
-            if( !textNews.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.,()-;::;!?№+*$&@]{10,2498}$/i) ){
+            if( !textNews.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.,()%-;::;!?№+*$&@]{10,2498}$/i) ){
 
                 $('#successMessage').fadeOut(100);
                 $('#errorMessage').text('Вы не ввели текст новости или введено слишком большой текст');
@@ -208,6 +219,7 @@
 
             $.ajax({
                 url:  `${window.ServerAddress}?ctrl=News&act=saveUpdateNews`,
+                //url:  `${window.ServerAddress}?ctrl=News&act=saveUpdateNews&XDEBUG_SESSION_START=17706`,
                 data: newsData,
                 processData: false,
                 contentType: false,

@@ -12,18 +12,18 @@
 
         addAdminButton.addEventListener('click' , async function (  ){
 
-            let login = document.querySelector('#login').value;
+            let login = document.querySelector('#login').value.trim();
 
-            if(!login.match(/^[a-zа-я0-9_\s]{4,148}$/i)){
+            if(!login.match(/^[a-zа-я0-9_\s]{3,148}$/i)){
 
                 $('#errorMessage1').fadeIn( 100 ).delay(1500).fadeOut(100);
                 return;
 
             }//if
 
-            let password = document.querySelector('#password').value;
+            let password = document.querySelector('#password').value.trim();
 
-            if(!password.match(/^[a-zа-я0-9-_*+=()/,..,;:\s]{4,148}$/i)){
+            if(!password.match(/^[a-zа-я0-9 -_+*:;.,!@#$%&?()`ёЁ\s]{4,148}$/i)){
 
                 $('#errorMessage2').fadeIn( 100 ).delay(1500).fadeOut(100);
                 return;
@@ -59,8 +59,72 @@
 
     } );
 
+} //Добавление
 
 
-}
+    // Удаление
+
+    let deleteAdminButton = document.querySelector('#delAdmin');
+
+    if(deleteAdminButton){
+
+        deleteAdminButton.addEventListener('click' , async function (  ){
+
+            let password = document.querySelector('#password').value.trim();
+
+            if(!password.match(/^[a-zа-я0-9 -_+*:;.,!@#$%&?()`ёЁ\s]{4,148}$/i)){
+
+                $('#errorMessage2').fadeIn( 100 ).delay(1500).fadeOut(100);
+
+                return;
+
+            }//if
+
+            let id = document.querySelector('#adminID');
+            let adminID = +id.dataset.id;
+
+
+            $.ajax( `${window.ServerAddress}?ctrl=Admin&act=saveDeleteAdmin`, {
+                method: 'POST',
+                data: {
+                    'adminID': adminID,
+                    'password': password
+                },
+                success: ( response )=>{
+
+                    console.log('RESPONSE' , response);
+
+                    if(response.code === 200){
+                        $('#errorMessage').fadeOut(100);
+                        $('#successMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+                    }//if
+                    if(response.code === 401){
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+                    }//else
+                    if(response.code === 400){
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+                    }//else
+                    else{
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+
+                    }//else
+
+                }//success
+            } );
+
+
+        } );
+
+    }// Удаление
+
+
+
+
 
 } )();

@@ -140,14 +140,16 @@ class Subcategory {
     }//DeleteSubcategory
 
 
-    public static function UpdateSubcategory($subcategoryID,  $subcategoryTitle ){
+    public static function UpdateSubcategory($subcategoryID,  $subcategoryTitle, $subcategoryImagePath ){
 
-        $stm = MySQL::$db->prepare("UPDATE `subcategories` SET `subcategoryTitle` = :title WHERE `subcategoryID` = :subcategoryId");
+        $stm = MySQL::$db->prepare("UPDATE `subcategories` SET `subcategoryTitle` = :title, `subcategoryImagePath` = :path WHERE `subcategoryID` = :subcategoryId");
 
 
         $stm->bindParam(':subcategoryId', $subcategoryID, \PDO::PARAM_INT);
 
         $stm->bindParam(':title', $subcategoryTitle, \PDO::PARAM_STR);
+
+        $stm->bindParam(':path',  $subcategoryImagePath, \PDO::PARAM_STR);
 
 
         $result = $stm->execute();

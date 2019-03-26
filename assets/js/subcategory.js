@@ -175,6 +175,77 @@
 
             }//if
 
+
+
+            let subcategoryImagePath = document.querySelector('#subcategoryImagePath').files[0];
+
+            if( subcategoryImagePath === undefined || subcategoryImagePath === NaN ){
+
+                let path = document.querySelector('#oldSubcategoryImagePath');
+                subcategoryImagePath = path.dataset.path1;
+
+            }//if
+
+            let subcategoryData = new FormData();
+
+            subcategoryData.append('categoryID', categoryID);
+
+            subcategoryData.append('subcategoryID', subcategoryID);
+
+            subcategoryData.append('subcategoryTitle', subcategoryTitle);
+
+            subcategoryData.append('categoryandsubcategoryID', categoryandsubcategoryID);
+
+            subcategoryData.append('subcategoryImagePath', subcategoryImagePath);
+
+
+            $.ajax({
+                url: `${window.ServerAddress}?ctrl=Subcategory&act=saveSubcategory`,
+                data: subcategoryData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success:  (response)=> {
+
+                    console.log( 'response' , response );
+
+                    if(response.code === 200){
+                        $('#errorMessage').fadeOut(100);
+                        $('#successMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+                    }//else
+                    else{
+
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+
+                    }//else
+                },
+                error: (response)=> {
+
+                    console.log('response', response);
+
+                    if (response.code === 200 ) {
+                        $('#errorMessage').fadeOut(100);
+                        $('#successMessage').fadeIn(100).delay(2500).fadeOut(100);
+                    }//else
+                    else {
+
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+
+                        $('#errorMessage').fadeIn(100).delay(2500).fadeOut(100);
+
+                    }//else
+                }
+
+            }); // ajax
+
+
+
+
+            /*
+
             $.ajax( `${window.ServerAddress}?ctrl=Subcategory&act=saveSubcategory`, {
                 method: 'POST',
                 data: {
@@ -202,6 +273,10 @@
 
                 }//success
             } );
+
+            */
+
+
         });
     }//if
 
