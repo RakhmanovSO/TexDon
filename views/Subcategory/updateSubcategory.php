@@ -43,12 +43,30 @@
         </div>
 
 
+
+
+        <div class="form-group" >
+            <a id="oldSubcategoryImagePath" class="btn" href="<?= $this->view->subcategory->subcategoryImagePath ?>" data-path1="<?= $this->view->subcategory->subcategoryImagePath?>">
+                <img class="img-fluid" style="width:300px;" src="<?= $this->view->subcategory->subcategoryImagePath ?>" >
+            </a>
+        </div>
+
+
+        <div class="form-group" style="margin-bottom: 30px; margin-top:20px;">
+            <label for="NewImage" style="font-size: 12pt;"><b>Прикрепить новое изображение</b></label>
+            <div>
+                <input id="subcategoryImagePath" type="file" accept="image/jpeg,image/png,image/gif,image/tif">
+            </div>
+        </div>
+
+
+
         <div class="form-group">
-            <div id="updateSubcategory" class="btn btn-success form-control">Обновить</div>
+            <div id="updateSubcategory" class="btn btn-success form-control"  style="width: 300px;">Обновить</div>
         </div>
 
         <div class="form-group">
-            <a class="btn btn-primary form-control" href="?ctrl=Subcategory&act=subcategoriesList">Вернутся назад</a>
+            <a class="btn btn-primary form-control" href="?ctrl=Subcategory&act=subcategoriesList" style="width: 300px;">Вернутся назад</a>
         </div>
 
 

@@ -20,9 +20,14 @@
 
             <label for="subcategoryImage" style="font-size: 12pt"><b>2. Добавьте изображение для новой подкатегории</b></label>
 
+        </div>
+
+        <div class="form-group"  style="margin-bottom: 25px;">
+
             <input id="subcategoryImagePath" type="file" name="img" accept="image/jpeg,image/png,image/gif,image/tif" >
 
         </div>
+
 
         <div class="form-group">
             <label for="productCategories" style="font-size: 12pt"><b>3. Выберите категорию к которой будет относится подкатегория</b></label>
