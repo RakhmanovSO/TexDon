@@ -29,7 +29,7 @@
                     <td> <p style="font-size: 13pt; "> <?= $admin->login ?> </p> </td>
 
                     <td align="center">
-                        <a id ="deleteAdmin" class="btn btn-danger" href="?ctrl=Admin&act=deleteAdmin&adminID=<?= $admin->adminID ?>&login=<?= $admin->login ?>" >Удалить</a> <BR>
+                        <a id ="deleteAdmin" class="btn btn-danger" href="?ctrl=Admin&act=deleteAdmin&adminID=<?= $admin->adminID ?>" >Удалить</a> <BR>
                     </td>
 
                 </tr>

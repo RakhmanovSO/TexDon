@@ -7,20 +7,25 @@
     <h2 style="margin-top: 15px;">Товары:</h2>
 
 
+
+    <form action="?ctrl=Search&act=searchProduct" method="post">
+
         <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
 
             <div class="p-2 bd-highlight">
-                <input id="productTitle" class="form-control" type="text" style="width:700px;"   placeholder="Введите название товара и нажмите поиск" aria-label="Поист товара">
+                <input id="productTitle" class="form-control" name="productTitle"  value="" type="text" style="width:500px;"   placeholder="Введите название товара и нажмите поиск" aria-label="Поист товара">
             </div>
 
             <div class="p-2 bd-highlight">
-                <div id="searchProduct" class="btn btn-success"   style=" width:120px; ">Поиск</div>
+                <input id="searchProduct" class="btn btn-success" type="submit" style=" width:120px; " value="Поиск">
             </div>
+
         </div>
+    </form>
 
     <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
         <div class="p-2 bd-highlight">
-            <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа!
+            <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 3 символа!
             </div>
         </div>
     </div>

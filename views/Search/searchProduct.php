@@ -6,26 +6,41 @@
 
     <h2 style="margin-top: 15px;">Поиск:</h2>
 
+    <form action="?ctrl=Search&act=searchProduct" method="post">
+
+        <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
+
+            <div class="p-2 bd-highlight">
+                <input id="productTitle" class="form-control" name="productTitle"  value="" type="text" style="width:500px;"   placeholder="Введите название товара и нажмите поиск" aria-label="Поист товара">
+            </div>
+
+            <div class="p-2 bd-highlight">
+                <input id="searchProduct" class="btn btn-success" type="submit" style=" width:120px; " value="Поиск">
+            </div>
+        </div>
+    </form>
 
     <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
-
         <div class="p-2 bd-highlight">
-            <input id="productTitle" class="form-control" type="text" style="width:700px;"   placeholder="Введите название товара и нажмите поиск" aria-label="Поист товара">
-        </div>
-
-        <div class="p-2 bd-highlight">
-            <div id="searchProduct" class="btn btn-success"   style=" width:120px; ">Поиск</div>
-        </div>
-
-    </div>
-    <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
-        <div class="p-2 bd-highlight">
-            <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа!
+            <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 3 символа!
             </div>
         </div>
     </div>
 
 
+
+    <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
+        <div class="p-2 bd-highlight">
+
+    <?php if (  $this->view->product === 0) { ?>
+        <h3>По вашему запросу ничего не найдено ! Попробуйте ввести другое название. </h3>
+    <?php }//if ?>
+
+        </div>
+    </div>
+
+
+    <?php if (  $this->view->product !== 0) { ?>
 
 
     <div class="table-responsive">
@@ -41,25 +56,27 @@
             </thead>
             <tbody id="productsTable">
 
-            <?php foreach ( $this->view->searchProduct as $product) { ?>
+            <?php foreach (  $this->view->product as $pr) { ?>
 
-            <?php if (  count($product) === 0) { ?>
-                    <h3> <?= $product ?> </h3>
+
+            <?php if (  count($pr) === 0) { ?>
+                    <h3> <?= $pr ?> </h3>
                 <?php }//if ?>
 
-                <tr data-product-id="<?= $product->productID ?>" >
 
-                    <td align="center" > <p style="margin-top: 45px; font-size: 13pt;"> <?= $product->productID ?> </p> </td>
-                    <td > <p style="margin-top: 45px; font-size: 13pt; "> <?= $product->productTitle ?> </p> </td>
-                    <td align="center"> <p style="margin-top: 45px; font-size: 13pt;">  <b> <?= $product->productPrice ?> руб.  </b></p></td>
+                <tr data-product-id="<?= $pr->productID ?>" >
+
+                    <td align="center" > <p style="margin-top: 45px; font-size: 13pt;"> <?= $pr->productID ?> </p> </td>
+                    <td > <p style="margin-top: 45px; font-size: 13pt; "> <?= $pr->productTitle ?> </p> </td>
+                    <td align="center"> <p style="margin-top: 45px; font-size: 13pt;">  <b> <?= $pr->productPrice ?> руб.  </b></p></td>
 
                     <td align="center">
-                        <a id ="updateProduct" class="btn btn-primary" style="margin-top: 2px; margin-bottom: 5px; " href="?ctrl=Product&act=updateProduct&productID=<?= $product->productID ?>" >Общ. информ.</a> <BR>
-                        <a id ="updateImages" class="btn btn-primary" style="margin-bottom: 5px;" href="?ctrl=Product&act=updateImagesProduct&productID=<?= $product->productID ?>" >Изображения</a> <BR>
-                        <a id ="updateAttributes" class="btn btn-primary" style="margin-bottom: 2px; width:130px; " href="?ctrl=Product&act=updateAttributesProduct&productID=<?= $product->productID ?>" >Атрибуты</a> <BR>
+                        <a id ="updateProduct" class="btn btn-primary" style="margin-top: 2px; margin-bottom: 5px; " href="?ctrl=Product&act=updateProduct&productID=<?= $pr->productID ?>" >Общ. информ.</a> <BR>
+                        <a id ="updateImages" class="btn btn-primary" style="margin-bottom: 5px;" href="?ctrl=Product&act=updateImagesProduct&productID=<?= $pr->productID ?>" >Изображения</a> <BR>
+                        <a id ="updateAttributes" class="btn btn-primary" style="margin-bottom: 2px; width:130px; " href="?ctrl=Product&act=updateAttributesProduct&productID=<?= $pr->productID ?>" >Атрибуты</a> <BR>
                     </td>
 
-                    <td align="center"><div style="margin-top: 45px; width:120px;" data-product-id="<?= $product->productID ?>" class="btn btn-danger" >Удалить</div></td>
+                    <td align="center"><div style="margin-top: 45px; width:120px;" data-product-id="<?= $pr->productID ?>" class="btn btn-danger" >Удалить</div></td>
                 </tr>
             <?php }//foreach ?>
 
@@ -90,5 +107,8 @@
             </div>
         </div>
     </div>
+
+    <?php }//if ?>
+
 
 </main>
