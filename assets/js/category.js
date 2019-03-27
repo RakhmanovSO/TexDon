@@ -60,12 +60,13 @@
 
                     if(response.code === 200){
                         $('#errorMessage').fadeOut(100);
+                        $('#successMessage').text('Новая категория добавлена успешно!');
                         $('#successMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
                     }//else
                     else{
 
                         $('#successMessage').fadeOut(100);
-                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').text('Ошибка добавления новой категории!');
 
                         $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
 
@@ -77,12 +78,13 @@
 
                     if (response.code === 200) {
                         $('#errorMessage').fadeOut(100);
+                        $('#successMessage').text('Новая категория добавлена успешно!');
                         $('#successMessage').fadeIn(100).delay(2500).fadeOut(100);
                     }//else
                     else {
 
                         $('#successMessage').fadeOut(100);
-                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').text('Ошибка добавления новой категории!');
 
                         $('#errorMessage').fadeIn(100).delay(2500).fadeOut(100);
 
@@ -183,6 +185,72 @@
 
             }//if
 
+
+            let categoryImagePath = document.querySelector('#categoryImagePath').files[0];
+
+            if( categoryImagePath === undefined || categoryImagePath === NaN ){
+
+                let path = document.querySelector('#oldCategoryImagePath');
+                categoryImagePath = path.dataset.path;
+
+            }//if
+
+
+            let categoryData = new FormData();
+
+            categoryData.append('categoryID', categoryID);
+
+            categoryData.append('categoryTitle', categoryTitle);
+
+            categoryData.append('categoryImagePath', categoryImagePath);
+
+
+
+            $.ajax({
+                url:  `${window.ServerAddress}?ctrl=Category&act=saveCategory`,
+                data: categoryData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                success:  (response)=> {
+
+                    console.log( 'response' , response );
+
+                    if(response.code === 200){
+                        $('#errorMessage').fadeOut(100);
+                        $('#successMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+                    }//else
+                    else{
+
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+                        $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+
+                    }//else
+                },
+                error: (response)=> {
+
+                    console.log('response', response);
+
+                    if (response.code === 200 ) {
+                        $('#errorMessage').fadeOut(100);
+                        $('#successMessage').fadeIn(100).delay(2500).fadeOut(100);
+                    }//else
+                    else {
+
+                        $('#successMessage').fadeOut(100);
+                        $('#errorMessage').text(response.message);
+
+                        $('#errorMessage').fadeIn(100).delay(2500).fadeOut(100);
+
+                    }//else
+                }
+
+            }); // ajax
+
+
+
+/*
             $.ajax( `${window.ServerAddress}?ctrl=Category&act=saveCategory`, {
                 method: 'POST',
                 data: {
@@ -208,6 +276,9 @@
 
                 }//success
             } );
+
+            */
+
         });
     }//if
 

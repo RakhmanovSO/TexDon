@@ -86,15 +86,15 @@ class Category{
     }//DeleteCategory
 
 
-    public static function UpdateCategory($categoryID,  $categoryTitle ){
+    public static function UpdateCategory($categoryID,  $categoryTitle, $categoryImagePath ){
 
-        $stm = MySQL::$db->prepare("UPDATE `categories` SET `categoryTitle` = :title WHERE `categoryID` = :categoryId");
-
+        $stm = MySQL::$db->prepare("UPDATE `categories` SET `categoryTitle` = :title, `categoryImagePath` = :path WHERE `categoryID` = :categoryId");
 
         $stm->bindParam(':categoryId', $categoryID, \PDO::PARAM_INT);
 
         $stm->bindParam(':title', $categoryTitle, \PDO::PARAM_STR);
 
+        $stm->bindParam( ":path" , $categoryImagePath , \PDO::PARAM_STR);
 
         $result = $stm->execute();
 

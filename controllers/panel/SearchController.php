@@ -12,34 +12,33 @@ class SearchController extends BaseController {
 
     public function searchProductAction(  ){
 
-        $productTitle = $this->request->getPostValue('productTitle');
+        $title = $this->request->getPostValue('productTitle');
+
+        $productTitle = trim($title);
 
         $product = Search::SearchProduct($productTitle, 50, 0);
 
 
         if (count($product) === 0) {
 
-            $product = "По вашему запросу - $productTitle  ничего не найдено !!! Попробуйте ввести другое название. ";
-
-            $this->view->searchProduct = $product;
+            $this->view->product = 0;
 
         }//if
 
         else{
 
-            $this->view->searchProduct = $product;
-
+            $this->view->product = $product;
 
         }// else
 
 
         return 'searchProduct';
 
+
+      //  require('localhost:5012/TexDon/views/Search/searchProduct.php');
        // $response['code'] = 200;
        // $response['message'] = '';
-
        //   $response['data'] = $product;
-
         //  $this->json( $response );
 
     }//searchProduct

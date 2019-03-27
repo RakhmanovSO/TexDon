@@ -17,10 +17,13 @@
         </div>
 
 
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom: 15px;">
 
             <label for="categoryImage" style="font-size: 12pt"><b>2. Добавьте изображение для новой категории</b></label>
 
+        </div>
+
+        <div class="form-group" style="margin-bottom: 40px; margin-top: 10px;">
             <input id="categoryImagePath" type="file" name="img" accept="image/jpeg,image/png,image/gif,image/tif" >
 
         </div>

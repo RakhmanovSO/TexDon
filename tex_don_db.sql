@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 08 2019 г., 22:46
+-- Время создания: Мар 27 2019 г., 15:51
 -- Версия сервера: 5.7.21
 -- Версия PHP: 5.6.35
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `login` varchar(150) NOT NULL,
   `password` varchar(300) NOT NULL,
   PRIMARY KEY (`adminID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `admins`
@@ -43,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
 INSERT INTO `admins` (`adminID`, `login`, `password`) VALUES
 (1, 'AdminTexDonGeneral', '$2y$10$dkNf68ynkZEbaUfnkbBO1ut.wQFTkUe/a5gQYRd6t5g.tTN7TUQcK'),
 (2, 'AdminTexDonFirst', '$2y$10$2i3g.1P.Hl1YBqo.UEOE7O7IVDEiiqgbVDxf2xe2miCWLN6QAXn96'),
-(3, 'AdminTexDonSecond', '$2y$10$wXvm7QlCK7ihJZKMLHjsJuZVz9kp3qAU42DrtG0VHcp38o8a5JIIe'),
-(4, 'Admin', '$2y$10$UX6K009Hl.dZHoIrHSAkxewjA6qcINKF/JtoFYbpe5reC.6XKbf8.');
+(3, 'AdminTexDonSecond', '$2y$10$wXvm7QlCK7ihJZKMLHjsJuZVz9kp3qAU42DrtG0VHcp38o8a5JIIe');
 
 -- --------------------------------------------------------
 
@@ -70,7 +69,7 @@ INSERT INTO `categories` (`categoryID`, `categoryTitle`, `categoryImagePath`) VA
 (2, 'Смартфоны и мобильные телефоны', '/TexDon/assets/images/category/Phones.png'),
 (3, 'Фото-видеоаппаратура', '/TexDon/assets/images/category/PhotoAndVideo.png'),
 (4, 'Ноутбуки и планшеты', '/TexDon/assets/images/category/Laptops.png'),
-(5, 'Бытовая техника для дома', '/TexDon/assets/images/category/TechniqueforHome.jpg');
+(5, 'Бытовая техника для дома', '/TexDon/assets/images/category/TechniqueforHome.png');
 
 -- --------------------------------------------------------
 
@@ -86,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `categoriesandsubcategories` (
   PRIMARY KEY (`categoryandsubcategoryID`),
   KEY `fk_catID` (`categoryID`),
   KEY `fk_subcatID` (`subcategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `categoriesandsubcategories`
@@ -99,7 +98,13 @@ INSERT INTO `categoriesandsubcategories` (`categoryandsubcategoryID`, `categoryI
 (8, 4, 11),
 (13, 4, 16),
 (14, 2, 17),
-(15, 2, 18);
+(15, 2, 18),
+(16, 3, 19),
+(17, 3, 20),
+(18, 3, 21),
+(19, 1, 22),
+(20, 5, 23),
+(21, 5, 24);
 
 -- --------------------------------------------------------
 
@@ -166,17 +171,16 @@ CREATE TABLE IF NOT EXISTS `news` (
   `displayOnTheHomePage` tinyint(1) NOT NULL,
   PRIMARY KEY (`newsID`),
   KEY `fk_typeID` (`newsTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `news`
 --
 
 INSERT INTO `news` (`newsID`, `titleNews`, `dateNews`, `textNews`, `newsTypeID`, `imagePath1`, `imagePath2`, `displayOnTheHomePage`) VALUES
-(1, 'Выбери свой ноутбук HP на процессоре Intel!', '2019-01-03', 'Неважно, ученик, студент или сотрудник офиса – любой пользователь выбирает себе надёжный и удобный девайс. При этом устройство должно хорошо справляться с поставленными задачами: работа с офисными приложениями, общение и сёрфинг в интернете, редактирование текстовой информации, хранение данных. Представляем повседневных помощников, которые хорошо подойдут для данных задач:', 8, '/TexDon/assets/images/news/NEWS_03.01.19.jpg', NULL, 1),
-(2, 'Рассрочка или бонусы! Ноутбуки HP', '2019-01-03', 'Оформите беспроцентный кредит* на ноутбуки HP из списка в любом магазине нашей сети или получите 8 % от стоимости покупки на бонусную карту ProZaPass.** В акции участвует большое количество моделей HP. Давно планировали заменить устройство для работы и офиса или же мечтаете об ураганных современных играх? Топовый мощный ноутбук, крепкий рабочий помощник или бюджетный девайс – решать вам!', 8, '/TexDon/assets/images/news/NEWS_03.01.19-02.jpg', NULL, 1),
-(3, 'Выгодный кредит 0-10-12!', '2019-01-04', 'Поздравляем Вас с приближающимся 2019 Годом!\r\nПод Новый Год принято дарить Подарки! Порадуйте себя, своих близких и друзей новой, современной цифровой и бытовой техникой. Огромный выбор товаров на выгодных условиях от DNS сделает Ваши Новогодние хлопоты приятными! Храните угощения для праздничного стола в обновлённом холодильнике, выпекайте рождественское печенье в функциональном духовом шкафу и соберитесь с родными перед новым телевизором, ведь впереди такие долгие праздники! С Выгодным кредитом на 12 месяцев Новогодние хлопоты будут приятными.\r\nПокупайте здесь и сейчас, без первого взноса, сроком на 12 месяцев! *\r\n*Условия акции: 0 рублей - первый взнос 10% - переплата*\r\nна 12 месяцев Пусть Новогодние мечты сбываются с сетью магазинов цифровой и бытовой техники DNS!', 8, '/TexDon/assets/images/news/NEWS_04.01.19.jpg', NULL, 1),
-(4, 'новая', '2019-02-22', 'новая новая', 2, '/TexDon/assets/images/news/RYZEN_2700_BOX-01.jpg', NULL, 0);
+(1, 'Выбери свой ноутбук HP на процессоре Intel!', '2019-03-23', 'При этом устройство должно хорошо справляться с поставленными задачами: работа с офисными приложениями, общение и сёрфинг в интернете, редактирование текстовой информации, хранение данных. Представляем повседневных помощников, которые хорошо подойдут для данных задач.', 8, '/TexDon/assets/images/news/NEWS_03.01.19.jpg', NULL, 1),
+(2, 'Рассрочка или бонусы! Ноутбуки HP', '2019-03-23', 'В акции участвует большое количество моделей HP. Давно планировали заменить устройство для работы и офиса или же мечтаете об ураганных современных играх? Топовый мощный ноутбук, крепкий рабочий помощник или бюджетный девайс - решать вам!', 8, '/TexDon/assets/images/news/NEWS_03.01.19-02.jpg', NULL, 1),
+(3, 'Выгодный кредит 0-10-12!', '2019-03-23', 'Порадуйте себя, своих близких и друзей новой, современной цифровой и бытовой техникой. Огромный выбор товаров на выгодных условиях от DNS сделает Ваши Новогодние хлопоты приятными! Храните угощения для праздничного стола в обновлённом холодильнике, выпекайте рождественское печенье в функциональном духовом шкафу и соберитесь с родными перед новым телевизором, ведь впереди такие долгие праздники! С Выгодным кредитом на 12 месяцев Новогодние хлопоты будут приятными.\nПокупайте здесь и сейчас, без первого взноса, сроком на 12 месяцев! \nУсловия акции: 0 рублей - первый взнос 10% на 12 месяцев Пусть Новогодние мечты сбываются с сетью магазинов цифровой и бытовой техники DNS!', 8, '/TexDon/assets/images/news/NEWS_04.01.19.jpg', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -279,27 +283,23 @@ CREATE TABLE IF NOT EXISTS `productimagespath` (
 --
 
 INSERT INTO `productimagespath` (`id`, `productID`, `productImagePath`) VALUES
-(1, 1, '/TexDon/assets/images/products/i5_7400-01.jpg'),
-(2, 1, '/TexDon/assets/images/products/i5_7400-02.jpg'),
-(3, 1, '/TexDon/assets/images/products/i5_7400-03.jpg'),
+(1, 1, '/TexDon/assets/images/products/1032356v01.jpg'),
+(2, 1, '/TexDon/assets/images/products/1032355v01.jpg'),
 (4, 2, '/TexDon/assets/images/products/i5_7400-01.jpg'),
 (5, 2, '/TexDon/assets/images/products/i5_7400-02.jpg'),
 (6, 2, '/TexDon/assets/images/products/i5_7400-03.jpg'),
 (7, 3, '/TexDon/assets/images/products/i5_7400-01.jpg'),
 (8, 3, '/TexDon/assets/images/products/i5_7400-02.jpg'),
 (9, 3, '/TexDon/assets/images/products/i5_7400-03.jpg'),
-(10, 4, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-01.jpg'),
+(10, 4, '/TexDon/assets/images/products/nVidia GeForce RTX 2070.jpg'),
 (11, 4, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-02.jpg'),
 (12, 4, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-03.jpg'),
-(13, 4, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-04.jpg'),
 (14, 5, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-01.jpg'),
 (15, 5, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-02.jpg'),
 (16, 5, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-03.jpg'),
-(17, 5, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-04.jpg'),
 (18, 6, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-01.jpg'),
 (19, 6, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-02.jpg'),
 (20, 6, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-03.jpg'),
-(21, 6, '/TexDon/assets/images/products/nVidia GeForce RTX 2070-04.jpg'),
 (27, 12, '/TexDon/assets/images/products/RYZEN_2700_BOX-01.jpg'),
 (28, 11, '/TexDon/assets/images/products/RYZEN_2700_BOX-001.jpg'),
 (29, 11, '/TexDon/assets/images/products/RYZEN_2700_BOX-002.jpg'),
@@ -326,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`productID`, `productTitle`, `productDescription`, `productPrice`, `brandProduct`) VALUES
-(1, 'Процессор Intel Core i5-7400 BOX без кулера', 'Процессор Intel Core i5-7400 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 16000, 'Intel'),
+(1, 'Процессор Intel Core i5 8600 BOX', 'Процессор Intel Core i5 8600 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 16000, 'Intel'),
 (2, 'Процессор Intel Core i5-7400 BOX ', 'Процессор Intel Core i5-7400 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 16300, 'Intel'),
 (3, 'Процессор Intel Core i5-7400 OEM', 'Процессор Intel Core i5-7400 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 15500, 'Intel'),
 (4, 'Видеокарта GIGABYTE nVidia GeForce RTX 2070 , GV-N2070GAMING OC-8GC, 8Гб, GDDR6, OC, Ret', 'Видеокарта GeForce RTX обеспечивает лучший игровой процесс на ПК. Обладая всеми возможностями архитектуры GPU NVIDIA Turing и революционной платформы RTX, видеокарты серии RTX 20 объединяют технологии трассировки лучей в реальном времени, искусственного интеллекта и программируемые шейдеры. Это абсолютно другой игровой опыт.', 46000, 'GIGABYTE'),
@@ -405,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `subcategories` (
   `subcategoryImagePath` varchar(350) DEFAULT NULL,
   PRIMARY KEY (`subcategoryID`),
   UNIQUE KEY `subcategoriesTitle` (`subcategoryTitle`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `subcategories`
@@ -418,7 +418,13 @@ INSERT INTO `subcategories` (`subcategoryID`, `subcategoryTitle`, `subcategoryIm
 (11, 'Ноутбуки', '/TexDon/assets/images/subcategory/Laptops.png'),
 (16, 'Планшеты', '/TexDon/assets/images/subcategory/Tablets 2.png'),
 (17, 'Смартфоны', '/TexDon/assets/images/subcategory/smartphone.png'),
-(18, 'Мобильные телефоны', '/TexDon/assets/images/subcategory/MobTel.png');
+(18, 'Мобильные телефоны', '/TexDon/assets/images/subcategory/MobTel.png'),
+(19, 'Объективы', '/TexDon/assets/images/subcategory/bb90366f4989.png'),
+(20, 'Вспышки', '/TexDon/assets/images/subcategory/1ef8a5ee6e96.png'),
+(21, 'Штативы', '/TexDon/assets/images/subcategory/5a27263b8afd.png'),
+(22, 'Мониторы', '/TexDon/assets/images/subcategory/mt.png'),
+(23, 'Техника для красоты', '/TexDon/assets/images/subcategory/8b5782a7d1cf.png'),
+(24, 'Техника для кухни', '/TexDon/assets/images/subcategory/cd39a1907e34.png');
 
 -- --------------------------------------------------------
 

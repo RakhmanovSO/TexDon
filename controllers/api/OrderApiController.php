@@ -22,8 +22,17 @@ class OrderApiController extends BaseController{
 
         $dateAndTimeOrder = date('Y-m-d');
 
-
         $orderDetails = $_POST['orderDetails'];
+
+/*
+        $userFirstAndLastName = $this->request->getGetValue('userFirstAndLastName');
+        $userEmail = $this->request->getGetValue('userEmail');
+        $userContactNumberPhone = $this->request->getGetValue('userContactNumberPhone');
+        $deliveryAddressOrder = $this->request->getGetValue('deliveryAddressOrder');
+        $commentToTheOrder = $this->request->getGetValue('commentToTheOrder');
+        $dateAndTimeOrder = date('Y-m-d');
+        $orderDetails = $_GET['orderDetails'];
+*/
 
         /// Если $_POST = 0 то Получить данные на сервере можно следующим образом:
         ///$orderDetails = json_decode(file_get_contents('php://input'), true);
@@ -44,8 +53,6 @@ class OrderApiController extends BaseController{
             array(
                 'code' => 200,
                 'message' => "Заказ оформлен !",
-                'order' => $newOrder,
-                'orderDetails' => $orderDetails
             )
         );
 
