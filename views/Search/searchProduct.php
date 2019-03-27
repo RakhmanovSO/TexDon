@@ -2,22 +2,23 @@
 
     <script defer src="assets/js/product.js"></script>
 
-    <script defer src="assets/js/searchProduct.js"></script>
+<!--    <script defer src="assets/js/searchProduct.js"></script>-->
 
     <h2 style="margin-top: 15px;">Поиск:</h2>
 
 
-    <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
+
+    <form action="?ctrl=Search&act=searchProduct" method="post" class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
 
         <div class="p-2 bd-highlight">
             <input id="productTitle" class="form-control" type="text" style="width:700px;"   placeholder="Введите название товара и нажмите поиск" aria-label="Поист товара">
         </div>
 
         <div class="p-2 bd-highlight">
-            <div id="searchProduct" class="btn btn-success"   style=" width:120px; ">Поиск</div>
+            <button type="submit" class="btn btn-success"   style=" width:120px; ">Поиск</button>
         </div>
+    </form>
 
-    </div>
     <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 10px;">
         <div class="p-2 bd-highlight">
             <div id="errorMessage1" style="display: none" class="alert alert-danger">Ошибка! Введите название товара минимум 2 символа!

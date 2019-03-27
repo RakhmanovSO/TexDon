@@ -36,8 +36,6 @@ class SearchController extends BaseController {
 
         return 'searchProduct';
 
-        require('localhost:5012/TexDon/views/Search/searchProduct.php');
-
        // $response['code'] = 200;
        // $response['message'] = '';
 
