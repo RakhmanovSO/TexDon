@@ -45,11 +45,13 @@ class NewsController extends BaseController{
 
         $name1 = $_FILES['imagePath1']['name'];
 
-        $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+        $newsImagePath1 = "assets/images/news";
 
-        $imagePath1 ="/TexDon/assets/images/news/$name1";
+        $imagePath1 ="assets/images/news/$name1";
 
-        mkdir($newsImagePath1);
+        if(!file_exists($newsImagePath1)){
+            mkdir($newsImagePath1);
+        }
 
         $newsImagePath1 .="/$name1";
 
@@ -57,22 +59,33 @@ class NewsController extends BaseController{
 
 //////////////////////////////////// image 2
 
-        $name2 = $_FILES['imagePath2']['name'];
+        $imagePath2 = null;
+        $resultUploadedFile2 = null;
 
-        if ($name2 == null){
-            $name2 = null;
+        if(isset($_FILES['imagePath2'])){
+
+            $name2 = $_FILES['imagePath2']['name'];
+
+            if ($name2 == null){
+                $name2 = null;
+            }//if
+            else {
+                $newsImagePath2 = "assets/images/news";
+
+                $imagePath2 = "assets/images/news/$name2";
+
+                if(!file_exists($newsImagePath2)){
+                    mkdir($newsImagePath2);
+                }//if
+
+
+                $newsImagePath2 .= "/$name2";
+
+                $resultUploadedFile2 = move_uploaded_file($_FILES['imagePath2']['tmp_name'], $newsImagePath2);
+            }
+
         }//if
-        else {
-            $newsImagePath2 = "E:/Games/wamp64/www/TexDon/assets/images/news";
 
-            $imagePath2 = "/TexDon/assets/images/news/$name2";
-
-            mkdir($newsImagePath2);
-
-            $newsImagePath2 .= "/$name2";
-
-            $resultUploadedFile2 = move_uploaded_file($_FILES['imagePath2']['tmp_name'], $newsImagePath2);
-        }
 ////////////////////////////////////  result
 
         $response = array(
