@@ -30,12 +30,8 @@ class OrderApiController extends BaseController{
         $userContactNumberPhone = $this->request->getGetValue('userContactNumberPhone');
         $deliveryAddressOrder = $this->request->getGetValue('deliveryAddressOrder');
         $commentToTheOrder = $this->request->getGetValue('commentToTheOrder');
-
         $dateAndTimeOrder = date('Y-m-d');
-
-
         $orderDetails = $_GET['orderDetails'];
-
 */
 
         /// Если $_POST = 0 то Получить данные на сервере можно следующим образом:
