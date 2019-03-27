@@ -10,6 +10,9 @@ use utils\MySQL;
 class AdminController extends BaseController {
 
 
+
+
+
     public function adminListAction(){
 
         $admins = Admin :: GetAllUsers(50,0);
