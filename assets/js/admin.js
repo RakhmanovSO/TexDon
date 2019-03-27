@@ -68,6 +68,8 @@
 
     if(deleteAdminButton){
 
+
+
         deleteAdminButton.addEventListener('click' , async function (  ){
 
             let password = document.querySelector('#password').value.trim();
@@ -114,6 +116,8 @@
                         $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
 
                     }//else
+
+                    window.location = 'http://localhost:5012/TexDon/index.php?ctrl=Admin&act=adminList';
 
                 }//success
             } );

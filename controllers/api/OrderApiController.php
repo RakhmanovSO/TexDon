@@ -22,7 +22,12 @@ class OrderApiController extends BaseController{
 
         $dateAndTimeOrder = date('Y-m-d');
 
-        $orderDetails = $_POST['orderDetails'];
+        echo "OrderDetails:";
+//        echo var_dump(json_decode($_POST['orderDetails']));
+        echo $userFirstAndLastName;
+        exit();
+
+//        $orderDetails =  json_decode($_POST['orderDetails']);
 
 /*
         $userFirstAndLastName = $this->request->getGetValue('userFirstAndLastName');
