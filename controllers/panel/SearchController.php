@@ -33,7 +33,6 @@ class SearchController extends BaseController {
         }// else
 
 
-
         return 'searchProduct';
 
        // $response['code'] = 200;
