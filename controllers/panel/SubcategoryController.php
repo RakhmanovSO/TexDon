@@ -34,15 +34,26 @@ class SubcategoryController extends BaseController {
 
     public function addNewSubcategoryAction(  ){
 
-        $subcategoryTitle = $this->request->getPostValue('subcategoryTitle');
+        $title = $this->request->getPostValue('subcategoryTitle');
+
+
+        $subcategoryTitle = trim($title);
+
 
         $name = $_FILES['subcategoryImagePath']['name'];
+
 
         $subcategoryImagePath = "E:/Games/wamp64/www/TexDon/assets/images/subcategory";
 
         $ImagePath ="/TexDon/assets/images/subcategory/$name";
 
-        mkdir($subcategoryImagePath);  // создаём папку по пути subcategoryImagePath с именем папки folder
+
+        if(!file_exists($subcategoryImagePath)){
+
+            mkdir($subcategoryImagePath);  // создаём папку по пути subcategoryImagePath с именем папки folder
+
+        }//if
+
 
         $subcategoryImagePath .="/$name";
 
@@ -159,10 +170,13 @@ class SubcategoryController extends BaseController {
 
     public function saveSubcategoryAction(  ){
 
-        $subcategoryTitle = $this->request->getPostValue('subcategoryTitle');
+        $title = $this->request->getPostValue('subcategoryTitle');
         $subcategoryID = $this->request->getPostValue('subcategoryID');
         $categoryID = $this->request->getPostValue('categoryID');
         $categoryandsubcategoryID = $this->request->getPostValue('categoryandsubcategoryID');
+
+
+        $subcategoryTitle = trim($title);
 
 
         $response = array(
@@ -172,29 +186,46 @@ class SubcategoryController extends BaseController {
         );
 
 
+        if (isset($_FILES['subcategoryImagePath'])) {
+
+            $name1 = $_FILES['subcategoryImagePath']['name'];
+
+            if ($name1 == null) {
+
+                $subcategoryImagePath = $this->request->getPostValue('subcategoryImagePath');
+
+            }//if
+            else {
+                $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/subcategory";
+
+                $subcategoryImagePath = "/TexDon/assets/images/subcategory/$name1";
 
 
+                if (!file_exists($imagePath)) {
 
-        $name1 = $_FILES['subcategoryImagePath']['name'];
+                    mkdir($imagePath);
 
-        if ($name1 == null){
+                }//if
+
+
+                $imagePath .= "/$name1";
+
+                $resultUploadedFile1 = move_uploaded_file($_FILES['subcategoryImagePath']['tmp_name'], $imagePath);
+
+            }// else
+
+
+        } //if
+
+        if (!isset($_FILES['subcategoryImagePath'])) {
 
             $subcategoryImagePath = $this->request->getPostValue('subcategoryImagePath');
 
-        }//if
-        else{
             $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/subcategory";
 
-            $subcategoryImagePath ="/TexDon/assets/images/subcategory/$name1";
+            $resultUploadedFile1 = move_uploaded_file($subcategoryImagePath , $imagePath);
 
-            mkdir($imagePath);
-
-            $imagePath .="/$name1";
-
-            $resultUploadedFile1 =  move_uploaded_file( $_FILES['subcategoryImagePath']['tmp_name'] , $imagePath);
-
-        }// else
-
+        }//if
 
         try{
 

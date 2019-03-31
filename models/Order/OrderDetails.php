@@ -50,9 +50,10 @@ class OrderDetails {
 
     public static function AddNewOrderDetails( $productID,  $amountProduct, $productPrice, $orderID) {
 
-        $stm = MySQL::$db->prepare("INSERT INTO `orderdetails`(`orderDetailsID`, `productID`, `amountProduct`, `productPrice`, `orderID`) VALUES (NULL,:idP, :amount, :price, :orderId)");
+        $stm = MySQL::$db->prepare("INSERT INTO `orderdetails`(`orderDetailsID`, `productID`, `amountProduct`, `productPrice`, `orderID`) VALUES  (NULL, :id, :amount, :price, :orderId )");
 
-        $stm->bindParam( ":idP" ,  $productID, \PDO::PARAM_INT);
+
+        $stm->bindParam( ":id" ,  $productID, \PDO::PARAM_INT);
 
         $stm->bindParam( ":amount" ,  $amountProduct, \PDO::PARAM_INT);
 
@@ -63,11 +64,6 @@ class OrderDetails {
         $stm->execute();
 
         $result =  $stm->fetch(\PDO::FETCH_OBJ);
-
-
-        if( $result === false ){
-            throw new \Exception(MySQL::$db->errorInfo());
-        }//if
 
         return  $result;
 

@@ -73,15 +73,24 @@ class ProductController extends BaseController {
 
     public function addNewProductAction(  ){
 
-        $productTitle = $this->request->getPostValue('productTitle');
+        $title = $this->request->getPostValue('productTitle');
 
-        $productDescription = $this->request->getPostValue('productDescription');
+        $description = $this->request->getPostValue('productDescription');
 
         $subcategoryID = $this->request->getPostValue('subcategoryID');
 
-        $productPrice = $this->request->getPostValue('productPrice');
+        $price = $this->request->getPostValue('productPrice');
 
-        $brandProduct = $this->request->getPostValue('brandProduct');
+        $brand = $this->request->getPostValue('brandProduct');
+
+
+        $productTitle = trim($title);
+
+        $productDescription = trim($description);
+
+        $productPrice = trim($price);
+
+        $brandProduct = trim($brand);
 
 
         $response = array(
@@ -213,15 +222,25 @@ class ProductController extends BaseController {
 
         $subcategoryandproductID = $this->request->getPostValue('subcategoryandproductID');
 
-        $productTitle = $this->request->getPostValue('productTitle');
+        $title = $this->request->getPostValue('productTitle');
 
-        $productPrice = $this->request->getPostValue('productPrice');
+        $price = $this->request->getPostValue('productPrice');
 
-        $productDescription = $this->request->getPostValue('productDescription');
+        $description = $this->request->getPostValue('productDescription');
 
         $subcategoryID = $this->request->getPostValue('subcategoryID');
 
-        $brandProduct = $this->request->getPostValue('brandProduct');
+        $brand = $this->request->getPostValue('brandProduct');
+
+
+        $productTitle = trim($title);
+
+        $productDescription = trim($description);
+
+        $productPrice = trim($price);
+
+        $brandProduct = trim($brand);
+
 
 
         try{
@@ -286,22 +305,37 @@ class ProductController extends BaseController {
 
         $productID = $this->request->getPostValue('productID');
 
-        $name = $_FILES['productImagePath']['name'];
 
-        $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/products";
+        if (isset($_FILES['productImagePath'])) {
 
-        $productImagePath ="/TexDon/assets/images/products/$name";
+            $name = $_FILES['productImagePath']['name'];
 
-        mkdir($imagePath);
+            $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/products";
 
-        $imagePath  .="/$name";
+            $productImagePath = "/TexDon/assets/images/products/$name";
 
-        $resultUploadedFile =  move_uploaded_file( $_FILES['productImagePath']['tmp_name'] , $imagePath );
+            if (!file_exists($imagePath)) {
 
+                mkdir($imagePath);
+            }
+
+
+            $imagePath .= "/$name";
+
+            $resultUploadedFile = move_uploaded_file($_FILES['productImagePath']['tmp_name'], $imagePath);
+        }//if
+
+        if (!isset($_FILES['productImagePath'])) {
+
+            $response['code'] = 200;
+            $response['message'] = 'Изображение не добавленно! Вы забыли его прикрепить. ';
+        }
 
         try{
 
             $result = ProductImagesPath::AddProductImagePath( $productID, $productImagePath);
+
+            $id = MySQL::$db->lastInsertId();
 
             $response['code'] = 200;
             $response['message'] = 'Изображение успешно добавленно!';
@@ -309,7 +343,8 @@ class ProductController extends BaseController {
                 'result' =>  $result,
                 'resultUploadedFile' =>  $resultUploadedFile,
                 'productID' => $productID,
-                'imagesPaths' =>  $productImagePath
+                'imagesPath' =>  $productImagePath,
+                'id' => $id,
             );
 
         }//try
@@ -357,7 +392,7 @@ class ProductController extends BaseController {
 
                     $imagePath = "E:/Games/wamp64/www$path->productImagePath";
 
-                    unlink($imagePath); // удаление файла по пути path  ???????????   http://localhost:5012
+                    unlink($imagePath); // удаление файла по пути path
                 }
 
             }//if
@@ -507,27 +542,6 @@ class ProductController extends BaseController {
         }//catch
 
     }//removeProductAttribute
-
-
-    public function searchPrAction(  ){
-
-        /*
-
-        $response = array(
-            'code' => '' , 'data' => '' , 'message' => ''
-        );
-
-        $this->json( $response );
-
-        * javascript загрузить новую страницу
-        * http://jdevelop.info/articles/html-css-js/200-perekhod-na-druguyu-stranitsu-s-pomoshchyu-javascript
-        *
-        * http://qaru.site/questions/298627/loading-another-html-page-from-javascript
-
-*/
-    } //searchAction
-
-
 
 
 }//ProductController

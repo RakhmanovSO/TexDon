@@ -5,6 +5,7 @@ namespace controllers\api;
 use models\Order\Order;
 use models\Order\OrderDetails;
 
+use utils\MySQL;
 use controllers\panel\BaseController;
 
 class OrderApiController extends BaseController{
@@ -14,33 +15,64 @@ class OrderApiController extends BaseController{
 
     public function AddOrderAction (  ){
 
-        $userFirstAndLastName = $this->request->getPostValue('userFirstAndLastName');
-        $userEmail = $this->request->getPostValue('userEmail');
-        $userContactNumberPhone = $this->request->getPostValue('userContactNumberPhone');
-        $deliveryAddressOrder = $this->request->getPostValue('deliveryAddressOrder');
-        $commentToTheOrder = $this->request->getPostValue('commentToTheOrder');
+        $userName = $this->request->getPostValue('userFirstAndLastName');
+
+        if($userName === "undefined" || $userName === "" || $userName === null){
+
+            $this->json(
+                array(
+                    'code' => 401,
+                    'message' => "Заказ не оформлен ! Произошла ошибка",
+                )
+            );
+            exit();
+        }//if
+
+
+        $email = $this->request->getPostValue('userEmail');
+
+        if($email === "undefined" || $email === "" || $email=== null){
+            $email = null;
+        }//if
+
+
+        $userPhone = $this->request->getPostValue('userContactNumberPhone');
+
+        if($userPhone === "undefined" || $userPhone === "" || $userPhone === null){
+
+            $this->json(
+                array(
+                    'code' => 401,
+                    'message' => "Заказ не оформлен ! Произошла ошибка",
+                )
+            );
+            exit();
+
+        }//if
+
+        $deliveryAddress = $this->request->getPostValue('deliveryAddressOrder');
+
+        $commentOrder = $this->request->getPostValue('commentToTheOrder');
+
+        if($commentOrder === "undefined" || $commentOrder === "" || $commentOrder === null){
+            $commentOrder = null;
+        }//if
+
 
         $dateAndTimeOrder = date('Y-m-d');
 
-        echo "OrderDetails:";
-//        echo var_dump(json_decode($_POST['orderDetails']));
-        echo $userFirstAndLastName;
-        exit();
+        $orderDetails = json_decode ($_POST['orderDetails']);
 
-//        $orderDetails =  json_decode($_POST['orderDetails']);
-
-/*
-        $userFirstAndLastName = $this->request->getGetValue('userFirstAndLastName');
-        $userEmail = $this->request->getGetValue('userEmail');
-        $userContactNumberPhone = $this->request->getGetValue('userContactNumberPhone');
-        $deliveryAddressOrder = $this->request->getGetValue('deliveryAddressOrder');
-        $commentToTheOrder = $this->request->getGetValue('commentToTheOrder');
-        $dateAndTimeOrder = date('Y-m-d');
-        $orderDetails = $_GET['orderDetails'];
-*/
 
         /// Если $_POST = 0 то Получить данные на сервере можно следующим образом:
         ///$orderDetails = json_decode(file_get_contents('php://input'), true);
+
+
+        $userFirstAndLastName = trim($userName);
+        $userEmail = trim($email);
+        $userContactNumberPhone = trim($userPhone);
+        $deliveryAddressOrder = trim($deliveryAddress);
+        $commentToTheOrder = trim($commentOrder);
 
 
         $newOrder = Order::AddNewOrder($userFirstAndLastName,  $userContactNumberPhone, $userEmail, $deliveryAddressOrder, $commentToTheOrder,  $dateAndTimeOrder );

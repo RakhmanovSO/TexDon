@@ -30,9 +30,9 @@ class NewsController extends BaseController{
 
     public function addNewsAction(){
 
-        $titleNews = $this->request->getPostValue('titleNews');
+        $title = $this->request->getPostValue('titleNews');
 
-        $textNews = $this->request->getPostValue('textNews');
+        $textN = $this->request->getPostValue('textNews');
 
         $newsTypeID = $this->request->getPostValue('newsTypeID');
 
@@ -41,50 +41,85 @@ class NewsController extends BaseController{
         $dateNews = date ('Y-m-d');
 
 
+
+        $titleNews = trim($title);
+
+        $textNews = trim($textN);
+
+
 ///////////////////////////////////  image 1
 
         $name1 = $_FILES['imagePath1']['name'];
 
-        $newsImagePath1 = "assets/images/news";
+        if ($name1 == null){
 
-        $imagePath1 ="assets/images/news/$name1";
+            $imagePath1 = $this->request->getPostValue('imagePath1');
 
-        if(!file_exists($newsImagePath1)){
-            mkdir($newsImagePath1);
+            if($imagePath1 === null || $imagePath1 === NULL || $imagePath1 === "null" || $imagePath1 === "NULL"){
+
+                $imagePath1 = NULL;
+
+            }//if
+
         }
+        else {
 
-        $newsImagePath1 .="/$name1";
+            $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
 
-        $resultUploadedFile1 =  move_uploaded_file( $_FILES['imagePath1']['tmp_name'] , $newsImagePath1);
+            $imagePath1 = "/TexDon/assets/images/news/$name1";
 
+            if(!file_exists($newsImagePath1)){
+
+                mkdir($newsImagePath1);
+
+            }//if
+
+
+            $newsImagePath1 .= "/$name1";
+
+            $resultUploadedFile1 = move_uploaded_file($_FILES['imagePath1']['tmp_name'], $newsImagePath1);
+
+        }
 //////////////////////////////////// image 2
 
-        $imagePath2 = null;
-        $resultUploadedFile2 = null;
+        $imagePath2 = NULL;
+        $resultUploadedFile2 = NULL;
 
-        if(isset($_FILES['imagePath2'])){
+        if (isset($_FILES['imagePath2'])) {
 
             $name2 = $_FILES['imagePath2']['name'];
 
-            if ($name2 == null){
-                $name2 = null;
-            }//if
-            else {
-                $newsImagePath2 = "assets/images/news";
+            if ($name2 === null){
 
-                $imagePath2 = "assets/images/news/$name2";
+                $imagePath2 = $this->request->getPostValue('imagePath2');
 
-                if(!file_exists($newsImagePath2)){
-                    mkdir($newsImagePath2);
+                if($imagePath2 === null || $imagePath2 === NULL || $imagePath2 === "null" || $imagePath2 === "NULL"){
+
+                    $imagePath2 = NULL;
+
                 }//if
 
+            }
+            else {
+
+                $newsImagePath2 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+
+                $imagePath2 = "/TexDon/assets/images/news/$name2";
+
+                if(!file_exists($newsImagePath2)){
+
+                    mkdir($newsImagePath2);
+
+                }//if
 
                 $newsImagePath2 .= "/$name2";
 
                 $resultUploadedFile2 = move_uploaded_file($_FILES['imagePath2']['tmp_name'], $newsImagePath2);
             }
 
-        }//if
+
+        }// if
+
 
 ////////////////////////////////////  result
 
@@ -139,9 +174,9 @@ class NewsController extends BaseController{
 
         $newsID = $this->request->getPostValue('newsID');
 
-        $titleNews = $this->request->getPostValue('titleNews');
+        $title = $this->request->getPostValue('titleNews');
 
-        $textNews = $this->request->getPostValue('textNews');
+        $textN = $this->request->getPostValue('textNews');
 
         $newsTypeID = $this->request->getPostValue('newsTypeID');
 
@@ -150,62 +185,112 @@ class NewsController extends BaseController{
         $dateNews = date ('Y-m-d');
 
 
+        $titleNews = trim($title);
+
+        $textNews = trim($textN);
+
+
 ///////////////////////////////////  image 1
 
-        $name1 = $_FILES['imagePath1']['name'];
+        if (isset($_FILES['imagePath1'])) {
 
-        if ($name1 == null){
+
+            $name1 = $_FILES['imagePath1']['name'];
+
+            if ($name1 == null) {
+
+                $imagePath1 = $this->request->getPostValue('imagePath1');
+
+                if ($imagePath1 === null || $imagePath1 === NULL || $imagePath1 === "null" || $imagePath1 === "NULL") {
+
+                    $imagePath1 = NULL;
+
+                }//if
+
+            } else {
+
+                $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+
+                $imagePath1 = "/TexDon/assets/images/news/$name1";
+
+                if (!file_exists($newsImagePath1)) {
+
+                    mkdir($newsImagePath1);
+
+                }//if
+
+
+                $newsImagePath1 .= "/$name1";
+
+                $resultUploadedFile1 = move_uploaded_file($_FILES['imagePath1']['tmp_name'], $newsImagePath1);
+
+            }
+
+
+        }//if
+
+        if (!isset($_FILES['imagePath1'])) {
 
             $imagePath1 = $this->request->getPostValue('imagePath1');
 
-            if($imagePath1 === null || $imagePath1 === NULL || $imagePath1 === "null" || $imagePath1 === "NULL"){
-
-                $imagePath1 = NULL;
-
-            }//if
-
-        }
-        else {
-
             $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
 
-            $imagePath1 = "/TexDon/assets/images/news/$name1";
+            $resultUploadedFile1 = move_uploaded_file($imagePath1,  $newsImagePath1);
 
-            mkdir($newsImagePath1);
+        }//
 
-            $newsImagePath1 .= "/$name1";
-
-            $resultUploadedFile1 = move_uploaded_file($_FILES['imagePath1']['tmp_name'], $newsImagePath1);
-
-        }
 //////////////////////////////////// image 2
 
-        $name2 = $_FILES['imagePath2']['name'];
+        $imagePath2 = NULL;
+        $resultUploadedFile2 = NULL;
+
+        if (isset($_FILES['imagePath2'])) {
+
+            $name2 = $_FILES['imagePath2']['name'];
+
+            if ($name2 == null){
+
+                $imagePath2 = $this->request->getPostValue('imagePath2');
+
+                if($imagePath2 === null || $imagePath2 === NULL || $imagePath2 === "null" || $imagePath2 === "NULL"){
+
+                    $imagePath2 = NULL;
+
+                }//if
+
+            }
+            else {
+
+                $newsImagePath2 = "E:/Games/wamp64/www/TexDon/assets/images/news";
+
+                $imagePath2 = "/TexDon/assets/images/news/$name2";
+
+                if(!file_exists($newsImagePath2)){
+
+                    mkdir($newsImagePath2);
+
+                }//if
+
+                $newsImagePath2 .= "/$name2";
+
+                $resultUploadedFile2 = move_uploaded_file($_FILES['imagePath2']['tmp_name'], $newsImagePath2);
+            }
 
 
-        if ($name2 == null){
+        }// if
+
+
+        if (!isset($_FILES['imagePath2'])) {
 
             $imagePath2 = $this->request->getPostValue('imagePath2');
 
-            if($imagePath2 === null || $imagePath2 === NULL || $imagePath2 === "null" || $imagePath2 === "NULL"){
+            $newsImagePath1 = "E:/Games/wamp64/www/TexDon/assets/images/news";
 
-                $imagePath2 = NULL;
+            $resultUploadedFile2 = move_uploaded_file($imagePath2,  $newsImagePath1);
 
-            }//if
+        }//
 
-        }
-        else {
 
-            $newsImagePath2 = "E:/Games/wamp64/www/TexDon/assets/images/news";
-
-            $imagePath2 = "/TexDon/assets/images/news/$name2";
-
-            mkdir($newsImagePath2);
-
-            $newsImagePath2 .= "/$name2";
-
-            $resultUploadedFile2 = move_uploaded_file($_FILES['imagePath2']['tmp_name'], $newsImagePath2);
-        }
 
 ////////////////////////////////////  result
 

@@ -31,7 +31,11 @@ class ProductAttributesController extends BaseController {
 
     public function addNewAttributeAction(  ){
 
-        $attributeTitle = $this->request->getPostValue('attributeTitle');
+        $title = $this->request->getPostValue('attributeTitle');
+
+
+        $attributeTitle = trim($title);
+
 
         $response = array(
             'code' => '' , 'data' => '' , 'message' => ''
@@ -108,7 +112,11 @@ class ProductAttributesController extends BaseController {
     public function saveAttributeAction(  ){
 
         $attributeID = $this->request->getPostValue('attributeID');
-        $attributeTitle = $this->request->getPostValue('attributeTitle');
+
+        $title = $this->request->getPostValue('attributeTitle');
+
+        $attributeTitle = trim($title);
+
 
         $response = array(
             'code' => -1,
@@ -138,12 +146,6 @@ class ProductAttributesController extends BaseController {
         $this->json( $response );
 
     }//saveAttributeAction
-
-
-
-
-
-
 
 
 

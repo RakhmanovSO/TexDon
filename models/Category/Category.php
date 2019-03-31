@@ -54,6 +54,44 @@ class Category{
     }//getCategoryById
 
 
+
+
+    public static function GetSubcategoryByCategoryId($categoryID) {
+
+        $stm = MySQL::$db->prepare("SELECT * FROM `categoriesandsubcategories` WHERE categoryID = :id");
+
+        $stm->bindParam( ":id" , $categoryID , \PDO::PARAM_INT);
+
+        $stm->execute();
+
+        $categoryAndSubcat = $stm->fetchAll(\PDO::FETCH_OBJ);
+
+
+        if( $categoryAndSubcat === false ){
+            throw new \Exception(MySQL::$db->errorInfo());
+        }//if
+
+        return $categoryAndSubcat;
+
+    }//getCategoryById
+
+
+
+    public static function DeleteSubcategotyByCategoryId($categoryandsubcategoryID){
+
+        $stm = MySQL::$db->prepare("DELETE FROM `categoriesandsubcategories` WHERE `categoryandsubcategoryID` = :id");
+
+        $stm->bindParam(':id', $categoryandsubcategoryID, \PDO::PARAM_INT);
+
+        $result = $stm->execute();
+
+        return  $result;
+
+    }//DeleteCategory
+
+
+
+
     public static function AddCategory( $categoryTitle, $categoryImagePath ) {
 
         $stm = MySQL::$db->prepare("INSERT INTO categories(categoryID , categoryTitle, categoryImagePath) VALUES (NULL ,:title, :path)");

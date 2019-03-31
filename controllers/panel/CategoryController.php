@@ -4,6 +4,8 @@ namespace controllers\panel;
 
 use models\category\Category;
 use models\subcategory\Subcategory;
+use models\categoryAndSubcategory\CategoryAndSubcategory;
+
 
 
 class CategoryController extends BaseController {
@@ -34,11 +36,30 @@ class CategoryController extends BaseController {
 
             $category = Category::GetCategoryById($categoryID);
 
+
+            $delAllSubcatergory = Category::GetSubcategoryByCategoryId($categoryID);
+
+
+                foreach ($delAllSubcatergory as $elem) {
+
+                    CategoryAndSubcategory::DeleteSubcategoryToCategory($elem->categoryandsubcategoryID);
+
+                }// foreach 1
+
+
+            foreach ($delAllSubcatergory as $elem) {
+
+                Subcategory::DeleteSubcategory( $elem->subcategoryID );
+
+                //дописать удаление изображения Подкатегории ! -> unlink($imagePath);
+
+            }//foreach 2
+
+
             $result = Category::DeleteCategory( $categoryID );
 
 
-
-            if ($result == true) {
+            if ($result === true) {
 
                     $imagePath = "E:/Games/wamp64/www$category->categoryImagePath";
 
@@ -81,29 +102,55 @@ class CategoryController extends BaseController {
     public function saveCategoryAction(  ){
 
         $categoryID = $this->request->getPostValue('categoryID');
-        $categoryTitle = $this->request->getPostValue('categoryTitle');
+        $title = $this->request->getPostValue('categoryTitle');
 
 
-        $name1 = $_FILES['categoryImagePath']['name'];
+         $categoryTitle = trim($title);
 
-        if ($name1 == null){
+        if (isset($_FILES['categoryImagePath'])) {
+
+            $name1 = $_FILES['categoryImagePath']['name'];
+
+            if ($name1 == null) {
+
+                $categoryImagePath = $this->request->getPostValue('categoryImagePath');
+
+            }//if
+            else {
+
+                $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/category";
+
+                $categoryImagePath = "/TexDon/assets/images/category/$name1";
+
+
+                if (!file_exists($imagePath)) {
+
+                    mkdir($imagePath);
+
+                }//if
+
+
+                $imagePath .= "/$name1";
+
+                $resultUploadedFile1 = move_uploaded_file($_FILES['categoryImagePath']['tmp_name'], $imagePath);
+
+            }// else
+
+
+        }//if
+
+
+        if (!isset($_FILES['categoryImagePath'])) {
 
             $categoryImagePath = $this->request->getPostValue('categoryImagePath');
 
-        }//if
-        else {
-
             $imagePath = "E:/Games/wamp64/www/TexDon/assets/images/category";
 
-            $categoryImagePath = "/TexDon/assets/images/category/$name1";
+            $resultUploadedFile1 = move_uploaded_file($categoryImagePath,  $imagePath);
 
-            mkdir($imagePath);
+        }//
 
-            $imagePath .= "/$name1";
 
-            $resultUploadedFile1 = move_uploaded_file($_FILES['categoryImagePath']['tmp_name'], $imagePath);
-
-        }// else
 
         $response = array(
             'code' => -1,
@@ -145,7 +192,10 @@ class CategoryController extends BaseController {
 
     public function addNewCategoryAction(  ){
 
-        $categoryTitle = $this->request->getPostValue('categoryTitle');
+        $title = $this->request->getPostValue('categoryTitle');
+
+        $categoryTitle = trim($title);
+
 
         $name = $_FILES['categoryImagePath']['name'];
 
@@ -159,7 +209,14 @@ class CategoryController extends BaseController {
 
         $ImagePath ="/TexDon/assets/images/category/$name";
 
-        mkdir($categoryImagePath);  // создаём папку по пути categoryImagePath с именем папки folder
+
+        if(!file_exists($categoryImagePath)){
+
+            mkdir($categoryImagePath);  // создаём папку по пути categoryImagePath
+
+        }//if
+
+
 
         $categoryImagePath .="/$name";
 
