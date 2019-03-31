@@ -20,9 +20,9 @@
             let productImagePath = document.querySelector('#productImagePath').files[0];
 
             if( productImagePath === undefined ){
-                $('#successMessage').fadeOut(100);
-                $('#errorMessage').text('Вы не добавили изображение !');
-                $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
+                $('#successMessage1').fadeOut(100);
+                $('#errorMessage5').text('Вы не добавили изображение !');
+                $('#errorMessage5').fadeIn( 100 ).delay(2500).fadeOut(100);
                 return;
             }//if
 
@@ -45,8 +45,27 @@
 
                     if(response.code == "200"){
                         $('#errorMessage5').fadeOut(100);
-                        $('#successMessag1').text(response.message);
-                        $('#successMessag1').fadeIn( 100 ).delay(2500).fadeOut(100);
+                        $('#successMessage1').text(response.message);
+                        $('#successMessage1').fadeIn( 100 ).delay(2500).fadeOut(100);
+
+                        imgTable.innerHTML += ` 
+ 
+                    <tr data-pathimages-id = ${response.data.id} >
+                    
+                     <td> <a id="imagePath" class="btn" href=${response.data.imagesPath} data-path=${response.data.imagesPath}>
+                            <img class="img-fluid" style="width:150px; height:150px" src=${response.data.imagesPath}>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <div id="idPathImages" style=" width:200px; height: 43px; margin-top: 50px;" data-pathimages-id=${response.data.id} data-product-id=${response.data.productID} class="btn btn-danger">Удалить изображение</div>
+                    </td>
+                    
+                    </tr> 
+                        `;
+
+
+
                     }//else
                     else{
 
@@ -84,6 +103,8 @@
 
     // Удаление Изображений Товара
 
+    /*
+
     let removeButtons = document.querySelectorAll('.btn-danger');
 
     let id = -1;
@@ -101,6 +122,26 @@
         } )
 
     } );
+    */
+
+    let id = -1;
+    let productID = -1;
+
+
+    $('main').on( 'click' , '.btn-danger' , function (  ){
+
+        id = $(this).data('pathimages-id');
+
+        productID = $(this).data('product-id');
+
+        $('#removeProductImageModal').modal();
+
+    });
+
+
+
+
+
 
     let confirmRemoveProductImageButton = document.querySelector('#confirmRemoveProductImage');
 

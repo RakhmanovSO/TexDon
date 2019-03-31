@@ -17,7 +17,7 @@
             let imagePath1 = document.querySelector('#imagePath1').files[0];
 
 
-            if( !text.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.,()-;::;!?№+*$&@]{10,2498}$/i) ){
+            if( !text.match(/^[a-zA-Z0-9\sа-яА-ЯЁё_.,.,\(\)\/;:\-:;!?№\+*\$&@ \<\>\"\']{10,2498}$/i) ){
 
                 $('#successMessage').fadeOut(100);
                 $('#errorMessage').text('Вы не ввели текст в Контент или введено слишком большой текст');
@@ -43,8 +43,8 @@
             firmData.append('imagePath1', imagePath1);
 
             $.ajax({
-                url: `${window.ServerAddress}?ctrl=InfoFirm&act=saveInfoFirm`,
-                //url: "http://localhost:5012/TexDon/index.php?ctrl=InfoFirm&act=saveInfoFirm&XDEBUG_SESSION_START=19847",
+               // url: `${window.ServerAddress}?ctrl=InfoFirm&act=saveInfoFirm`,
+                url: "http://localhost:5012/TexDon/index.php?ctrl=InfoFirm&act=saveInfoFirm&XDEBUG_SESSION_START=19847",
                 data: firmData,
                 processData: false,
                 contentType: false,

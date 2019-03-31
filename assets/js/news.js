@@ -25,7 +25,7 @@
 
             if( imagePath1 === undefined ){
                 $('#successMessage').fadeOut(100);
-                $('#errorMessage').text('Вы не добавили изображение для новой подкатегории');
+                $('#errorMessage').text('Вы не добавили изображение !');
                 $('#errorMessage').fadeIn( 100 ).delay(2500).fadeOut(100);
                 return;
             }//if

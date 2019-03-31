@@ -148,7 +148,7 @@
                 return;
             }//if
 
-            $.ajax( `${window.ServerAddress}?ctrl=Category&act=removeCategory`, {
+            $.ajax( `${window.ServerAddress}?ctrl=Category&act=removeCategory&XDEBUG_SESSION_START=18109`, {
                 method: 'DELETE',
                 data: {
                     'categoryID': categoryID

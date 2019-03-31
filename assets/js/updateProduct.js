@@ -86,8 +86,8 @@
 
                     if(response.code == "200"){
                         $('#errorMessage5').fadeOut(100);
-                        $('#successMessag1').text(response.message);
-                        $('#successMessag1').fadeIn( 100 ).delay(2500).fadeOut(100);
+                        $('#successMessage1').text(response.message);
+                        $('#successMessage1').fadeIn( 100 ).delay(2500).fadeOut(100);
                     }//else
                     else{
 
