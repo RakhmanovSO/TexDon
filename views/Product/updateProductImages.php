@@ -21,7 +21,7 @@
             <table class="table table-striped table-sm" >
 
 
-                <tbody>
+                <tbody id="imgTable">
 
                 <?php foreach ($this->view->productImages as $img) {?>
 

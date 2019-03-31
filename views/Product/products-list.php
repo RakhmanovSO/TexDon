@@ -74,7 +74,7 @@
         <div class="d-flex justify-content-center bd-highlight mb-3" style="margin-top: 45px; margin-bottom: 45px;">
 
             <div class="p-2 bd-highlight">
-                     <div id="moreProducts" style="width:250px;"  class="btn btn-success" >Показать ещё 40 товаров</div>
+                     <div id="moreProducts" style="width:250px;"  class="btn btn-success" >Показать ещё</div>
             </div>
         </div>
 
