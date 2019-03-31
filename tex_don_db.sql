@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 27 2019 г., 15:51
+-- Время создания: Мар 31 2019 г., 14:26
 -- Версия сервера: 5.7.21
 -- Версия PHP: 5.6.35
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `categoryImagePath` varchar(350) DEFAULT NULL,
   PRIMARY KEY (`categoryID`),
   UNIQUE KEY `categoryTitle` (`categoryTitle`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `categories`
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `categoriesandsubcategories` (
   PRIMARY KEY (`categoryandsubcategoryID`),
   KEY `fk_catID` (`categoryID`),
   KEY `fk_subcatID` (`subcategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `categoriesandsubcategories`
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `informationfirm` (
 --
 
 INSERT INTO `informationfirm` (`infoFirmID`, `text`, `imagePath1`) VALUES
-(1, '<p>Интернет-магазин TexDon.com (Донецк). Один из первых интернет-магазинов который предлагает поставку в течении двух недель в города и ПГТ  ДНР и ЛНР компьютерной и бытовой техники от двух наших Российских партнеров dns-shop.ru и citilink.ru с гарантией от наших партнеров.</p>\r\n<p>Как мы работаем:</p>\r\n<p>1. Вы оформляете заказ на определенный товар в нашем интернет-магазине с указанием контактных данных для связи с Вами.</p>\r\n<p>2. Наши операторы, приняв и обработав заказ свяжутся с Вами по указанным контактным данным и сообщат дату и примерное время доставки.</p>\r\n<p>3. За 2-3 дня до доставки товара мы Вам перезваниваем для подтверждения доставки и оплаты заказа. После чего привозим его по указанному адресу в заявке.</p>\r\n<p>4. После получения Вами товара вы проверяете его в присутствии курьера и оплачиваете товар. В наличии с товаром будет гарантия.</p>\r\n<p>Также возможна Срочная Доставка Любого товара за 2-3 дня !!!</p>\r\n<p>Данная услуга стоит плюс 3000,00 рос. рублей к стоимости заказа.</p>', '/TexDon/assets/images/infoFirm/Log_Title_TexDon.png');
+(1, '<p>Интернет-магазин TexDon.com (Донецк). Один из первых интернет-магазинов который предлагает поставку в течение 10 дней в города и ПГТ  ДНР и ЛНР компьютерной и бытовой техники от двух наших Российских партнеров dns-shop.ru и citilink.ru с гарантией от наших партнеров.</p>\r\n<p>Как мы работаем:</p>\r\n<p>1. Вы оформляете заказ на определенный товар в нашем интернет-магазине с указанием контактных данных для связи с Вами.</p>\r\n<p>2. Наши операторы, приняв и обработав заказ свяжутся с Вами по указанным контактным данным за 2-3 дня до доставки товара и сообщат дату и примерное время доставки товара по указанному адресу, от Вас необходимо будет подтверждение доставки и оплаты товара.</p>\r\n<p>Если по оставленным Вами контактам не будет ответа на протяжении 10-12 часов – заказ будет аннулирован.</p>\r\n<p>3. После получения Вами товара вы проверяете его в присутствии курьера и оплачиваете товар. В наличии с товаром будет гарантия на товар.</p>\r\n<p>В настоявший момент средний срок доставки товара после оформления заказа составляет от 7 до 10 дней.</p>\r\n<p>Также возможна Срочная Доставка Любого товара за 2-3 дня !!!</p>\r\n<p>Стоимость данной услуги оговаривается индивидуально в зависимости от товара и его количества.</p>', '/TexDon/assets/images/infoFirm/Log_Title_TexDon.png');
 
 -- --------------------------------------------------------
 
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `displayOnTheHomePage` tinyint(1) NOT NULL,
   PRIMARY KEY (`newsID`),
   KEY `fk_typeID` (`newsTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `news`
@@ -198,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `orderdetails` (
   PRIMARY KEY (`orderDetailsID`),
   KEY `fk_productsId` (`productID`),
   KEY `fk_orderID` (`orderID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orderdetails`
@@ -226,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `commentToTheOrder` varchar(900) DEFAULT NULL,
   `dateAndTimeOrder` datetime NOT NULL,
   PRIMARY KEY (`orderID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `orders`
@@ -276,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `productimagespath` (
   `productImagePath` varchar(365) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_product_img` (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `productimagespath`
@@ -319,14 +319,14 @@ CREATE TABLE IF NOT EXISTS `products` (
   `productPrice` double NOT NULL,
   `brandProduct` varchar(250) NOT NULL,
   PRIMARY KEY (`productID`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `products`
 --
 
 INSERT INTO `products` (`productID`, `productTitle`, `productDescription`, `productPrice`, `brandProduct`) VALUES
-(1, 'Процессор Intel Core i5 8600 BOX', 'Процессор Intel Core i5 8600 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 16000, 'Intel'),
+(1, 'Процессор Intel Core i5 8600 BOX', 'Процессор Intel Core i5 8600 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n\r\n            \r\n            ', 16000, 'Intel'),
 (2, 'Процессор Intel Core i5-7400 BOX ', 'Процессор Intel Core i5-7400 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 16300, 'Intel'),
 (3, 'Процессор Intel Core i5-7400 OEM', 'Процессор Intel Core i5-7400 поставляется в коробочном исполнении, поэтому вам не придется тратить время и средства на покупку кулера. Модель предназначена для установки в производительные офисные и домашние компьютеры. Совокупность технических параметров обеспечивает процессору возможность эффективно работать в составе игрового компьютера. Вас впечатлят возможности интегрированного графического ядра Intel HD Graphics 630: даже не устанавливая дискретный видеоадаптер, вы достигнете впечатляющей скорости работы.\r\n', 15500, 'Intel'),
 (4, 'Видеокарта GIGABYTE nVidia GeForce RTX 2070 , GV-N2070GAMING OC-8GC, 8Гб, GDDR6, OC, Ret', 'Видеокарта GeForce RTX обеспечивает лучший игровой процесс на ПК. Обладая всеми возможностями архитектуры GPU NVIDIA Turing и революционной платформы RTX, видеокарты серии RTX 20 объединяют технологии трассировки лучей в реальном времени, искусственного интеллекта и программируемые шейдеры. Это абсолютно другой игровой опыт.', 46000, 'GIGABYTE'),
@@ -350,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `productsandattributes` (
   PRIMARY KEY (`productandattributesID`),
   KEY `fk_prodID` (`productID`),
   KEY `fk_attribute` (`attributeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `productsandattributes`
@@ -377,7 +377,6 @@ INSERT INTO `productsandattributes` (`productandattributesID`, `attributeID`, `p
 (23, 2, 3, '4'),
 (26, 1, 3, '1051'),
 (29, 2, 12, '8'),
-(30, 7, 1, '2016'),
 (34, 3, 2, '3200'),
 (35, 7, 2, '2017'),
 (36, 3, 3, '3000'),
@@ -390,7 +389,8 @@ INSERT INTO `productsandattributes` (`productandattributesID`, `attributeID`, `p
 (43, 1, 12, 'AM4'),
 (44, 3, 12, '3600'),
 (45, 7, 12, '2019'),
-(48, 7, 6, '2019');
+(48, 7, 6, '2019'),
+(49, 7, 1, '2019');
 
 -- --------------------------------------------------------
 
@@ -405,16 +405,16 @@ CREATE TABLE IF NOT EXISTS `subcategories` (
   `subcategoryImagePath` varchar(350) DEFAULT NULL,
   PRIMARY KEY (`subcategoryID`),
   UNIQUE KEY `subcategoriesTitle` (`subcategoryTitle`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `subcategories`
 --
 
 INSERT INTO `subcategories` (`subcategoryID`, `subcategoryTitle`, `subcategoryImagePath`) VALUES
-(1, 'Процессоры', '/TexDon/assets/images/subcategory/Processors.jpg'),
-(2, 'Видеокарты', '/TexDon/assets/images/subcategory/VideoCards.jpg'),
-(4, 'Корпуса', '/TexDon/assets/images/subcategory/bodyPC.jpg'),
+(1, 'Процессоры', '/TexDon/assets/images/subcategory/Processors.png'),
+(2, 'Видеокарты', '/TexDon/assets/images/subcategory/VideoCards.png'),
+(4, 'Корпуса', '/TexDon/assets/images/subcategory/bodyPC.png'),
 (11, 'Ноутбуки', '/TexDon/assets/images/subcategory/Laptops.png'),
 (16, 'Планшеты', '/TexDon/assets/images/subcategory/Tablets 2.png'),
 (17, 'Смартфоны', '/TexDon/assets/images/subcategory/smartphone.png'),
@@ -440,7 +440,7 @@ CREATE TABLE IF NOT EXISTS `subcategoriesandproducts` (
   PRIMARY KEY (`subcategoryandproductID`),
   KEY `fk_productID` (`productID`),
   KEY `fk_subcategoryID` (`subcategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `subcategoriesandproducts`
