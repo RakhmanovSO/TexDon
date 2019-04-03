@@ -14,7 +14,7 @@
             let productTitle = titleInput.value.trim();
 
 
-            if(!productTitle.match(/^[a-zа-я0-9-_,..,/*()$&'""{}:;№;!&@ёЁ\s]{3,198}$/i)){
+            if(!productTitle.match(/^[a-zа-я0-9-_,..,/*()$&'""{}:;№;!&@ёЁ\s]{1,198}$/i)){
 
                 $('#errorMessage1').fadeIn( 100 ).delay(1500).fadeOut(100);
 
